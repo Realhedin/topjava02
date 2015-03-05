@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet for Meal
- *
- * Created by Dmitrii on 2/28/15.
- */
+* Servlet for Meal
+*
+* Created by Dmitrii on 2/28/15.
+*/
 public class MealServlet extends HttpServlet {
 
     private static final LoggerWrapper LOG = LoggerWrapper.get(MealServlet.class);
