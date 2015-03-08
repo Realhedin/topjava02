@@ -34,7 +34,7 @@ public class MockUserMealRepository implements UserMealRepository {
     @Override
     public UserMeal getMeal(int id) {
         UserMeal temp = new UserMeal("name",123,new Date());
-        LOG.info("Here is your meal: " + temp);
+        LOG.info("Here is your meal: " + temp.getName());
         return temp;
     }
 
