@@ -55,6 +55,7 @@ public class SpringMain {
             mumr.getAllMeals();
             mumr.getMeal(3);
             mumr.save(new UserMeal("myMeal", 1000, new Date()));
+            mumr.getMeal(LoggedUser.id());
         }
     }
 }
