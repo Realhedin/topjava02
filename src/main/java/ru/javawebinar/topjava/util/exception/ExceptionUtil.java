@@ -4,6 +4,8 @@ package ru.javawebinar.topjava.util.exception;
 import ru.javawebinar.topjava.LoggerWrapper;
 
 /**
+ * ExceptionUtil for check for correct DB return
+ *
  * User: gkislin
  * Date: 14.05.2014
  */

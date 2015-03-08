@@ -8,6 +8,8 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
 
 /**
+ * Controller for User
+ *
  * GKislin
  * 06.03.2015.
  */

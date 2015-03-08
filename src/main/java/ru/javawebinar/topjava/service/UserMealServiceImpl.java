@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
 /**
+ * Service implementation for UserMeal
+ *
  * GKislin
  * 06.03.2015.
  */

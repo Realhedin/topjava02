@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.model;
 
 /**
+ * Simplest entity with Id to inherit by all others
+ *
  * User: gkislin
  * Date: 22.08.2014
  */

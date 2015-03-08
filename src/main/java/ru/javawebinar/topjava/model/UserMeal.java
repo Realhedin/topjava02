@@ -3,6 +3,8 @@ package ru.javawebinar.topjava.model;
 import java.util.Date;
 
 /**
+ * Entity for Meal
+ *
  * GKislin
  * 06.03.2015.
  */

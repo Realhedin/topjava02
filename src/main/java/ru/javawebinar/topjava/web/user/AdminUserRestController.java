@@ -9,6 +9,8 @@ import ru.javawebinar.topjava.service.UserService;
 import java.util.List;
 
 /**
+ * Controller for AdminUser
+ *
  * GKislin
  * 06.03.2015.
  */

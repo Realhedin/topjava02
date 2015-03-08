@@ -6,10 +6,11 @@ import ru.javawebinar.topjava.model.UserMeal;
 import java.util.List;
 
 /**
+ * Interface for UserMeal DAO(Repository)
+ *
  * GKislin
  * 06.03.2015.
  */
-@Repository
 public interface UserMealRepository {
 
     /**

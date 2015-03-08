@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.service.UserMealServiceImpl;
 
 /**
+ * Controller for UserMeal to get request from GUI
+ *
  * GKislin
  * 06.03.2015.
  */

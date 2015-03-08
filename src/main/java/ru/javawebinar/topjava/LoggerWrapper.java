@@ -5,6 +5,10 @@ import org.slf4j.LoggerFactory;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 /**
+ * Wrapper for our logging:
+ * 1) more info
+ * 2) easy to change in future
+ *
  * User: gkislin
  * Date: 22.01.14
  */

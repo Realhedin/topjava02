@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Mock file for UserMeal test work of layers
+ *
  * Created by Dmitrii on 3/7/15.
  */
 @Repository

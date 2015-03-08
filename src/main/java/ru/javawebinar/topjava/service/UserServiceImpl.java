@@ -10,6 +10,8 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import java.util.List;
 
 /**
+ * Service implementation for User
+ *
  * GKislin
  * 06.03.2015.
  */

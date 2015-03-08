@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Mock file for User test work of layers
+ *
  * User: gkislin
  * Date: 22.08.2014
  */

@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.model;
 
 /**
+ * Simple entity with name to inherit by others
+ *
  * User: gkislin
  * Date: 22.08.2014
  */

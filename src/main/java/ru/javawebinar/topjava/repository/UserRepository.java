@@ -5,6 +5,8 @@ import ru.javawebinar.topjava.model.User;
 import java.util.List;
 
 /**
+ * Interface for User DAO(Repository)
+ *
  * User: gkislin
  * Date: 22.08.2014
  */

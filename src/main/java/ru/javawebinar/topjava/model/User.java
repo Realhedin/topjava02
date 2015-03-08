@@ -6,6 +6,8 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
+ * Entity for User
+ *
  * User: gkislin
  * Date: 22.08.2014
  */

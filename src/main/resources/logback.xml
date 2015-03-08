@@ -8,15 +8,16 @@
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
 
+    <!--file appender-->
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>${TOPJAVA_ROOT}/log/topjava.log</file>
-
         <encoder>
             <charset>UTF-8</charset>
             <pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern>
         </encoder>
     </appender>
 
+    <!--console appender-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
@@ -24,8 +25,10 @@
         </encoder>
     </appender>
 
+    <!--for this package - level is DEBUG-->
     <logger name="ru.javawebinar.topjava" level="DEBUG"/>
 
+    <!--default level is INFO-->
     <root level="INFO">
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>

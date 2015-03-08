@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.util.exception;
 
 /**
+ * New exception
+ *
  * User: gkislin
  * Date: 19.08.2014
  */

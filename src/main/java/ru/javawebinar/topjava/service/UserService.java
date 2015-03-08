@@ -7,6 +7,8 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import java.util.List;
 
 /**
+ * Service interface for User
+ *
  * User: gkislin
  * Date: 22.08.2014
  */
