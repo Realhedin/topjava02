@@ -15,8 +15,8 @@ import java.util.List;
  * Date: 22.08.2014
  */
 @Repository
-public class MockUserRepository implements UserRepository {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepository.class);
+public class MockUserRepositoryImpl implements UserRepository {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepositoryImpl.class);
 
     @Override
     public boolean delete(int id) {

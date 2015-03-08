@@ -14,7 +14,7 @@ import java.util.List;
  * 06.03.2015.
  */
 @Service
-public class UserMealServiceImpl {
+public class UserMealServiceImpl implements UserMealService {
 
     @Autowired
     private UserMealRepository repository;

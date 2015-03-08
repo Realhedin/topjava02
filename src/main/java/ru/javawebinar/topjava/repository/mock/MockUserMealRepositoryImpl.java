@@ -10,14 +10,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Mock file for UserMeal test work of layers
- *
- * Created by Dmitrii on 3/7/15.
- */
+* Mock file for UserMeal test work of layers
+*
+* Created by Dmitrii on 3/7/15.
+*/
 @Repository
-public class MockUserMealRepository implements UserMealRepository {
+public class MockUserMealRepositoryImpl implements UserMealRepository {
 
-    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserMealRepository.class);
+    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserMealRepositoryImpl.class);
 
     @Override
     public UserMeal save(UserMeal meal) {

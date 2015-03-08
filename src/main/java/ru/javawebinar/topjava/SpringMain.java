@@ -2,11 +2,11 @@ package ru.javawebinar.topjava;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.javawebinar.topjava.repository.mock.MockUserRepositoryImpl;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
 import ru.javawebinar.topjava.web.user.AdminUserRestController;
 import ru.javawebinar.topjava.model.UserMeal;
-import ru.javawebinar.topjava.repository.mock.MockUserMealRepository;
-import ru.javawebinar.topjava.repository.mock.MockUserRepository;
+import ru.javawebinar.topjava.repository.mock.MockUserMealRepositoryImpl;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -29,16 +29,16 @@ public class SpringMain {
         System.out.println("\n");
         ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
-        MockUserRepository mockUserRepository = (MockUserRepository) appCtx.getBean("mockUserRepository");
-        mockUserRepository = appCtx.getBean(MockUserRepository.class);
+        MockUserRepositoryImpl mockUserRepositoryImpl = (MockUserRepositoryImpl) appCtx.getBean("mockUserRepositoryImpl");
+        mockUserRepositoryImpl = appCtx.getBean(MockUserRepositoryImpl.class);
 
         appCtx.close();
 
         //my check
-        System.out.println("\n\nMockUserMealRepository:");
+        System.out.println("\n\nMockUserMealRepositoryImpl:");
         try (ConfigurableApplicationContext appCtx2 = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
-            System.out.println(appCtx2.getBean(MockUserMealRepository.class));
-            MockUserMealRepository mumr = appCtx2.getBean(MockUserMealRepository.class);
+            System.out.println(appCtx2.getBean(MockUserMealRepositoryImpl.class));
+            MockUserMealRepositoryImpl mumr = appCtx2.getBean(MockUserMealRepositoryImpl.class);
             mumr.delete(3);
             mumr.getAllMeals();
             mumr.getMeal(3);
