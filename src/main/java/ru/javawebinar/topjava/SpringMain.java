@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava;
 
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.repository.mock.MockUserRepositoryImpl;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
@@ -56,6 +57,14 @@ public class SpringMain {
             mumr.getMeal(3);
             mumr.save(new UserMeal("myMeal", 1000, new Date()));
             mumr.getMeal(LoggedUser.id());
+        }
+
+
+        //my check3 through annotations
+        System.out.println("\n\ntry annotation");
+        try (AnnotationConfigApplicationContext appCtx3 = new AnnotationConfigApplicationContext("ru.javawebinar.topjava")) {
+            UserMealRestController mumr3 = appCtx3.getBean(UserMealRestController.class);
+            mumr3.getMeal(3);
         }
     }
 }
