@@ -76,4 +76,10 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
         LOG.info("List is: " + list);
         return list;
     }
+
+    @Override
+    public List<UserMeal> getAllMealsBetweenDates(Date startDate, Date endDate, int userId) {
+        //select * from UserMealTable umt where umt.startDate > startDate and umt.endDate < endDate and umt.user_id = userId;
+        return null;
+    }
 }

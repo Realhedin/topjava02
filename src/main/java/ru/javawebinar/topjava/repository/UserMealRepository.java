@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.UserMeal;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,6 +55,9 @@ public interface UserMealRepository {
      * @return
      */
     List<UserMeal> getAllMeals(int userId);
+
+
+    List<UserMeal> getAllMealsBetweenDates( Date startDate, Date endDate, int userId);
 
 
 

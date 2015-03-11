@@ -5,13 +5,17 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.mock.MockUserRepositoryImpl;
+import ru.javawebinar.topjava.service.UserMealService;
+import ru.javawebinar.topjava.service.UserMealServiceImpl;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
 import ru.javawebinar.topjava.web.user.AdminUserRestController;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.mock.MockUserMealRepositoryImpl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: gkislin
@@ -64,6 +68,25 @@ public class SpringMain {
             mumr.save(new UserMeal("myMeal", user, 1000, new Date(), new Date()));
             mumr.update(1);
             mumr.getMeal(1);
+            //try sort by startDate with existing list
+            UserMeal m1 = new UserMeal("m1", new User(), 1, new Date(1234567890l), new Date(1234567890123l));
+            UserMeal m2 = new UserMeal("m2", new User(), 2, new Date(12345678901l), new Date(1234567890123l));
+            UserMeal m3 = new UserMeal("m3", new User(), 3, new Date(123456789012l), new Date(1234567890123l));
+            List<UserMeal> userMeals = new ArrayList<>();
+            userMeals.add(m3);
+            userMeals.add(m2);
+            userMeals.add(m1);
+            System.out.println("Before filter by startDate:");
+            for (UserMeal userMeal : userMeals) {
+                System.out.println("startDate: " + userMeal.getFromDate() );
+            }
+            UserMealService service = appCtx2.getBean(UserMealServiceImpl.class);
+            List<UserMeal> filteredList = service.filterByBetweenDates(new Date(1234567900), new Date(12345678901234l), userMeals);
+            System.out.println("After filter by startDate: " + new Date(1234567900)+ ", endDate: " + new Date(12345678901234l));
+            for (UserMeal userMeal : filteredList) {
+                System.out.println("startDate: " + userMeal.getFromDate() );
+            }
+
         }
 
 

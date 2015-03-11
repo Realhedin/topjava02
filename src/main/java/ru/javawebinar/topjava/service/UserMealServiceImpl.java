@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,4 +48,20 @@ public class UserMealServiceImpl implements UserMealService {
         return repository.getAllMeals(userId);
     }
 
+    @Override
+    public List<UserMeal> getAllMealsBetweenDates(Date startDate, Date endDate, int userId) {
+        return repository.getAllMealsBetweenDates(startDate, endDate, userId);
+    }
+
+    @Override
+    public List<UserMeal> filterByBetweenDates(Date startDate, Date endDate, List<UserMeal> list) {
+        ArrayList<UserMeal> userMeals = new ArrayList<>();
+            for (UserMeal meal : list) {
+                if (meal.getFromDate().after(startDate) && meal.getToDate().before(endDate)) {
+                    userMeals.add(meal);
+                }
+            }
+
+        return userMeals;
+    }
 }

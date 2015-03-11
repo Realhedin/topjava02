@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.service.UserMealServiceImpl;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +46,10 @@ public class UserMealRestController {
 
     public List<UserMeal> getAllMeals(int userId) {
         return service.getAllMeals(userId);
+    }
+
+    public List<UserMeal> getAllMealsBetweenDates(Date startDate, Date endDate, int userId) {
+        return service.getAllMealsBetweenDates(startDate,endDate,userId);
     }
 
 }
