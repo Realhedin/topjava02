@@ -3,6 +3,7 @@ package ru.javawebinar.topjava;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.mock.MockUserRepositoryImpl;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
 import ru.javawebinar.topjava.web.user.AdminUserRestController;
@@ -40,10 +41,12 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx2 = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             System.out.println(appCtx2.getBean(MockUserMealRepositoryImpl.class));
             MockUserMealRepositoryImpl mumr = appCtx2.getBean(MockUserMealRepositoryImpl.class);
+            User user = new User();
+            user.setId(0);
             mumr.delete(3);
-            mumr.getAllMeals();
+            mumr.getAllMeals(LoggedUser.id());
             mumr.getMeal(3);
-            mumr.save(new UserMeal("myMeal", 1000, new Date()));
+            mumr.save(new UserMeal("myMeal",user, 1000, new Date(), new Date()));
         }
 
 
@@ -52,11 +55,15 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx2 = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             System.out.println(appCtx2.getBean(UserMealRestController.class));
             UserMealRestController mumr = appCtx2.getBean(UserMealRestController.class);
+            User user = new User();
+            user.setId(0);
             mumr.delete(3);
-            mumr.getAllMeals();
+            mumr.deleteAllMeals(LoggedUser.id());
+            mumr.getAllMeals(LoggedUser.id());
             mumr.getMeal(3);
-            mumr.save(new UserMeal("myMeal", 1000, new Date()));
-            mumr.getMeal(LoggedUser.id());
+            mumr.save(new UserMeal("myMeal", user, 1000, new Date(), new Date()));
+            mumr.update(1);
+            mumr.getMeal(1);
         }
 
 

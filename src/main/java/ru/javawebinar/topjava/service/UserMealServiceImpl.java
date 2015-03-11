@@ -26,16 +26,24 @@ public class UserMealServiceImpl implements UserMealService {
         return repository.save(meal);
     }
 
+    public boolean update(int id) {
+        return repository.update(id);
+    }
+
     public boolean delete(int id) {
         return repository.delete(id);
+    }
+
+    public boolean deleteAllMeals(int userId) {
+        return repository.deleteAllMeals(userId);
     }
 
     public UserMeal getMeal(int id) {
         return repository.getMeal(id);
     }
 
-    public List<UserMeal> getAllMeals() {
-        return repository.getAllMeals();
+    public List<UserMeal> getAllMeals(int userId) {
+        return repository.getAllMeals(userId);
     }
 
 }

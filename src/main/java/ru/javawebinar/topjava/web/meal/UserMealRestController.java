@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.web.meal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.service.UserMealServiceImpl;
 
@@ -26,16 +27,24 @@ public class UserMealRestController {
         return service.save(meal);
     }
 
+    public boolean update(int id) {
+        return service.update(id);
+    }
+
     public boolean delete(int id) {
         return service.delete(id);
+    }
+
+    public boolean deleteAllMeals(int userId) {
+        return service.deleteAllMeals(userId);
     }
 
     public UserMeal getMeal(int id) {
         return service.getMeal(id);
     }
 
-    public List<UserMeal> getAllMeals() {
-        return service.getAllMeals();
+    public List<UserMeal> getAllMeals(int userId) {
+        return service.getAllMeals(userId);
     }
 
 }

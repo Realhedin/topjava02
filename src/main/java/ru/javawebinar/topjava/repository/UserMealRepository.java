@@ -20,12 +20,27 @@ public interface UserMealRepository {
      */
     UserMeal save(UserMeal meal);
 
+
+    /**
+     * update existing meal
+     * @param id
+     * @return
+     */
+    boolean update(int id);
+
     /**
      * delete meal by id
      * @param id
      * @return
      */
     boolean delete(int id);
+
+    /**
+     * delete all meals for user
+     * @param userId
+     * @return
+     */
+    boolean deleteAllMeals(int userId);
 
     /**
      * get meal by its id
@@ -38,6 +53,8 @@ public interface UserMealRepository {
      * get all meals
      * @return
      */
-    List<UserMeal> getAllMeals();
+    List<UserMeal> getAllMeals(int userId);
+
+
 
 }

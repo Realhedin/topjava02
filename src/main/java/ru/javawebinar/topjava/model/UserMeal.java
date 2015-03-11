@@ -12,18 +12,24 @@ public class UserMeal extends BaseEntity {
 
     private String name;
 
+    private User user;
+
     private int calories;
 
-    private Date date;
+    private Date fromDate;
+
+    private Date toDate;
 
 
     public UserMeal() {
     }
 
-    public UserMeal(String name, int calories, Date date) {
+    public UserMeal(String name, User user, int calories, Date fromDate, Date toDate) {
         this.name = name;
+        this.user = user;
         this.calories = calories;
-        this.date = date;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     public String getName() {
@@ -42,11 +48,27 @@ public class UserMeal extends BaseEntity {
         this.calories = calories;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
