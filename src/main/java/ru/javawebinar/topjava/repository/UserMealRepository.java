@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.UserMeal;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,45 +20,45 @@ public interface UserMealRepository {
      * @param meal
      * @return
      */
-    UserMeal save(UserMeal meal);
+    UserMeal save(UserMeal meal, int userId);
 
-
-    /**
-     * update existing meal
-     * @param id
-     * @return
-     */
-    boolean update(int id);
 
     /**
      * delete meal by id
      * @param id
      * @return
      */
-    boolean delete(int id);
+    boolean delete(int id, int userId);
 
     /**
      * delete all meals for user
      * @param userId
      * @return
      */
-    boolean deleteAllMeals(int userId);
+    void deleteAll(int userId);
 
     /**
      * get meal by its id
      * @param id
      * @return
      */
-    UserMeal getMeal(int id);
+    UserMeal get(int id, int userId);
 
     /**
      * get all meals
      * @return
      */
-    List<UserMeal> getAllMeals(int userId);
+    List<UserMeal> getAll(int userId);
 
 
-    List<UserMeal> getAllMealsBetweenDates( Date startDate, Date endDate, int userId);
+    /**
+     * filter between dates
+     * @param startDate
+     * @param endDate
+     * @param userId
+     * @return
+     */
+    List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
 
 

@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.service;
 
 import ru.javawebinar.topjava.model.UserMeal;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -12,46 +13,50 @@ import java.util.List;
 public interface UserMealService {
 
     /**
-     * save meal
+     * create new meal
      * @param meal
+     * @param userId
      * @return
      */
-    public UserMeal save(UserMeal meal);
+    public UserMeal save(UserMeal meal, int userId);
 
     /**
-     * update meal by id
-     * @param id
+     * update meal
+     * @param meal
+     * @param userId
      * @return
      */
-    public boolean update(int id);
+    public UserMeal update(UserMeal meal, int userId);
 
     /**
      * delete meal by id
      * @param id
+     * @param userId
      * @return
      */
-    public boolean delete(int id);
+    public void delete(int id, int userId);
 
     /**
      * delete all meals for current user by id
      * @param userId
      * @return
      */
-    public boolean deleteAllMeals(int userId);
+    public void deleteAll(int userId);
 
     /**
      * get meal by id
      * @param id
+     * @param userId
      * @return
      */
-    public UserMeal getMeal(int id);
+    public UserMeal get(int id, int userId);
 
     /**
      * get all meals for current user by id
      * @param userId
      * @return
      */
-    public List<UserMeal> getAllMeals(int userId);
+    public List<UserMeal> getAll(int userId);
 
     /**
      * get all meals between dates for current user
@@ -60,7 +65,7 @@ public interface UserMealService {
      * @param userId
      * @return
      */
-    public List<UserMeal> getAllMealsBetweenDates(Date startDate, Date endDate, int userId);
+    public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
     /**
      * get all meals between dates for existing list for current user

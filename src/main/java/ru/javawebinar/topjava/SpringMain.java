@@ -47,10 +47,10 @@ public class SpringMain {
             MockUserMealRepositoryImpl mumr = appCtx2.getBean(MockUserMealRepositoryImpl.class);
             User user = new User();
             user.setId(0);
-            mumr.delete(3);
-            mumr.getAllMeals(LoggedUser.id());
-            mumr.getMeal(3);
-            mumr.save(new UserMeal("myMeal",user, 1000, new Date(), new Date()));
+//            mumr.delete(3);
+//            mumr.getAllMeals(LoggedUser.id());
+//            mumr.getMeal(3);
+//            mumr.save(new UserMeal("myMeal",user, 1000, new Date(), new Date()));
         }
 
 
@@ -62,12 +62,12 @@ public class SpringMain {
             User user = new User();
             user.setId(0);
             mumr.delete(3);
-            mumr.deleteAllMeals(LoggedUser.id());
-            mumr.getAllMeals(LoggedUser.id());
-            mumr.getMeal(3);
-            mumr.save(new UserMeal("myMeal", user, 1000, new Date(), new Date()));
-            mumr.update(1);
-            mumr.getMeal(1);
+//            mumr.deleteAllMeals(LoggedUser.id());
+//            mumr.getAllMeals(LoggedUser.id());
+//            mumr.getMeal(3);
+//            mumr.save(new UserMeal("myMeal", user, 1000, new Date(), new Date()));
+//            mumr.update(1);
+//            mumr.getMeal(1);
             //try sort by startDate with existing list
             UserMeal m1 = new UserMeal("m1", new User(), 1, new Date(1234567890l), new Date(1234567890123l));
             UserMeal m2 = new UserMeal("m2", new User(), 2, new Date(12345678901l), new Date(1234567890123l));
@@ -94,7 +94,7 @@ public class SpringMain {
         System.out.println("\n\ntry annotation");
         try (AnnotationConfigApplicationContext appCtx3 = new AnnotationConfigApplicationContext("ru.javawebinar.topjava")) {
             UserMealRestController mumr3 = appCtx3.getBean(UserMealRestController.class);
-            mumr3.getMeal(3);
+            //mumr3.getMeal(3);
         }
     }
 }
