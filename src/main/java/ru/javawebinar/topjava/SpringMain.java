@@ -9,7 +9,6 @@ import ru.javawebinar.topjava.service.UserMealServiceImpl;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
 import ru.javawebinar.topjava.web.user.AdminUserRestController;
 import ru.javawebinar.topjava.model.UserMeal;
-import ru.javawebinar.topjava.repository.mock.MockUserMealRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;

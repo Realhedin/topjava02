@@ -11,6 +11,8 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.user.AdminUserRestController;
 
 /**
+ * Test use MockUserRepositoryImpl from mock package
+ *
  * GKislin
  * 13.03.2015.
  */

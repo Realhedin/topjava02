@@ -12,6 +12,9 @@ import ru.javawebinar.topjava.web.user.AdminUserRestController;
 
 import java.util.Arrays;
 
+/**
+ * Test use MockUserRepositoryImpl from mock package
+ */
 public class UserAdminMockTest {
     private static ConfigurableApplicationContext appCtx;
     private static AdminUserRestController controller;
