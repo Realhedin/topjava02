@@ -74,5 +74,5 @@ public interface UserMealService {
      * @param list
      * @return
      */
-    public List<UserMeal> filterByBetweenDates(Date startDate, Date endDate, List<UserMeal> list);
+    public List<UserMeal> filterByBetweenDates(LocalDateTime startDate, LocalDateTime endDate, List<UserMeal> list);
 }

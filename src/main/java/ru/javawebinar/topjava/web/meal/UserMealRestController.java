@@ -8,7 +8,6 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.service.UserMealServiceImpl;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**

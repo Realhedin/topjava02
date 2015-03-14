@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.model;
 
-import java.util.Date;
+import ru.javawebinar.topjava.util.TimeUtil;
+
+import java.time.LocalDateTime;
 
 /**
  * Entity for Meal
@@ -9,66 +11,51 @@ import java.util.Date;
  * 06.03.2015.
  */
 public class UserMeal extends BaseEntity {
+    protected LocalDateTime dateTime;
 
-    private String name;
+    protected String description;
+
+    protected int calories;
 
     private User user;
-
-    private int calories;
-
-    private Date fromDate;
-
-    private Date toDate;
-
 
     public UserMeal() {
     }
 
-    public UserMeal(String name, User user, int calories, Date fromDate, Date toDate) {
-        this.name = name;
-        this.user = user;
+    public UserMeal(Integer id, LocalDateTime dateTime, String description, int calories) {
+        super(id);
+        this.dateTime = dateTime;
+        this.description = description;
         this.calories = calories;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
     }
 
-    public String getName() {
-        return name;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String meal) {
+        this.description = meal;
     }
 
     public int getCalories() {
         return calories;
     }
 
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
-
-    public Date getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
-    }
-
-    public Date getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
-
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal(" + id + ", " + TimeUtil.toString(dateTime) + ", '" + description + "', calories:" + calories + ')';
     }
 
     public void setUser(User user) {
         this.user = user;
     }
+
 }
