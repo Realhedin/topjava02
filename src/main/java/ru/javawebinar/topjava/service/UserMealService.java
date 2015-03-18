@@ -67,12 +67,12 @@ public interface UserMealService {
      */
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
-    /**
-     * get all meals between dates for existing list for current user
-     * @param startDate
-     * @param endDate
-     * @param list
-     * @return
-     */
-    public List<UserMeal> filterByBetweenDates(LocalDateTime startDate, LocalDateTime endDate, List<UserMeal> list);
+//    /**
+//     * get all meals between dates for existing list for current user
+//     * @param startDate
+//     * @param endDate
+//     * @param list
+//     * @return
+//     */
+//    public List<UserMeal> filterByBetweenDates(LocalDateTime startDate, LocalDateTime endDate, List<UserMeal> list);
 }

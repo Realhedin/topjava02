@@ -62,15 +62,15 @@ public class UserMealServiceImpl implements UserMealService {
 
 
     //additional
-    @Override
-    public List<UserMeal> filterByBetweenDates(LocalDateTime startDate, LocalDateTime endDate, List<UserMeal> list) {
-        ArrayList<UserMeal> userMeals = new ArrayList<>();
-            for (UserMeal meal : list) {
-                if (meal.getDateTime().isAfter(startDate) && meal.getDateTime().isBefore(endDate)) {
-                    userMeals.add(meal);
-                }
-            }
-
-        return userMeals;
-    }
+//    @Override
+//    public List<UserMeal> filterByBetweenDates(LocalDateTime startDate, LocalDateTime endDate, List<UserMeal> list) {
+//        ArrayList<UserMeal> userMeals = new ArrayList<>();
+//            for (UserMeal meal : list) {
+//                if (meal.getDateTime().isAfter(startDate) && meal.getDateTime().isBefore(endDate)) {
+//                    userMeals.add(meal);
+//                }
+//            }
+//
+//        return userMeals;
+//    }
 }

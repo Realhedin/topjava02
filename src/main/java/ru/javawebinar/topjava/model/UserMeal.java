@@ -19,7 +19,7 @@ public class UserMeal extends BaseEntity {
 
     protected int calories;
 
-    private User user;
+    private int userId;
 
     public UserMeal() {
     }
@@ -33,6 +33,22 @@ public class UserMeal extends BaseEntity {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
+    }
+
+    public UserMeal(Integer id, int userId, LocalDateTime dateTime, String description, int calories) {
+        super(id);
+        this.dateTime = dateTime;
+        this.dateTime = this.dateTime.minusHours(1);
+        this.description = description;
+        this.calories = calories;
+        this.userId = userId;
+    }
+
+    public UserMeal(Integer id, Integer userId, String description, int calories) {
+        super(id);
+        this.description = description;
+        this.calories = calories;
+        this.userId = userId;
     }
 
     public Date getDateTime() {
@@ -51,12 +67,26 @@ public class UserMeal extends BaseEntity {
         return calories;
     }
 
-    public User getUser() {
-        return user;
+//    public User getUser() {
+//        return user;
+//    }
+
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime.toLocalDateTime();
+        this.dateTime.plusHours(1);
     }
 
     public void setCalories(int calories) {
@@ -68,8 +98,8 @@ public class UserMeal extends BaseEntity {
         return "Meal(" + id + ", " + TimeUtil.toString(dateTime) + ", '" + description + "', calories:" + calories + ')';
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
 }
