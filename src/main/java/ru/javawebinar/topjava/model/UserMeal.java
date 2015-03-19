@@ -44,12 +44,16 @@ public class UserMeal extends BaseEntity {
         this.userId = userId;
     }
 
-    public UserMeal(Integer id, Integer userId, String description, int calories) {
-        super(id);
+
+    public UserMeal(LocalDateTime dateTime, Integer userId, String description, int calories) {
+        this.dateTime = dateTime;
+        this.userId = userId;
         this.description = description;
         this.calories = calories;
-        this.userId = userId;
     }
+
+
+
 
     public Date getDateTime() {
         return Timestamp.valueOf(dateTime);

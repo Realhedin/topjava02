@@ -51,8 +51,8 @@ public class UserMealServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        TestMeal tm = new TestMeal(100000, LocalDateTime.now(), "break",100);
-        UserMeal created = service.save(tm.asMeal(), 100000);
+        UserMeal tm = new UserMeal(LocalDateTime.now(),100000, "break",100);
+        UserMeal created = service.save(tm,100000);
         tm.setId(created.getId());
         MATCHER.assertListEquals(Arrays.asList(tm, MEAL), service.getAll(100000));
     }
@@ -60,12 +60,12 @@ public class UserMealServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateMailSave() throws Exception {
-        service.save(new TestMeal(1111, LocalDateTime.now(), "No user", 1111).asMeal(),1111);
+        service.save(new UserMeal(LocalDateTime.now(), 1111, "No user", 1111),1111);
     }
 
     @Test
     public void testDelete() throws Exception {
-        service.save(new TestMeal(100001, LocalDateTime.now(), "for Delete", 1111).asMeal(),100001);
+        service.save(new UserMeal( LocalDateTime.now(),100001, "for Delete", 1111),100001);
         System.out.println(service.get(BaseEntity.START_SEQ+4,100001).toString());
         service.delete(BaseEntity.START_SEQ+4,100001);
         MATCHER.assertListEquals(Collections.singletonList(MEAL_TO_DELETE), service.getAll(100001));
@@ -97,8 +97,8 @@ public class UserMealServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        TestMeal tm = new TestMeal(100000, LocalDateTime.now(), "break", 100);
-        UserMeal created = service.save(tm.asMeal(), 100000);
+        UserMeal tm = new UserMeal(LocalDateTime.now(), 100000, "break", 100);
+        UserMeal created = service.save(tm, 100000);
         tm.setId(created.getId());
         MATCHER.assertListEquals(Arrays.asList(tm, MEAL), service.getAll(100000));
     }
