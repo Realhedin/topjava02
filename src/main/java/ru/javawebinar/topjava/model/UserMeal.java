@@ -35,7 +35,7 @@ public class UserMeal extends BaseEntity {
         this.calories = calories;
     }
 
-    public UserMeal(Integer id, int userId, LocalDateTime dateTime, String description, int calories) {
+    public UserMeal(Integer id,  LocalDateTime dateTime, int userId, String description, int calories) {
         super(id);
         this.dateTime = dateTime;
         this.dateTime = this.dateTime.minusHours(1);

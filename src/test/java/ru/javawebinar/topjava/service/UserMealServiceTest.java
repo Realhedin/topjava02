@@ -64,6 +64,24 @@ public class UserMealServiceTest {
     }
 
     @Test
+    public void testUpdate() throws Exception {
+        UserMeal tm = new UserMeal(LocalDateTime.now(),100000, "break",100);
+        UserMeal created = service.save(tm,100000);
+        tm.setId(created.getId());
+        tm.setCalories(777);
+        service.update(tm,100000);
+        MATCHER.assertEquals(tm,service.get(tm.getId(),tm.getUserId()));
+    }
+
+    @Ignore
+    @Test(expected = NotFoundException.class)
+    public void testUpdateForeign() throws Exception {
+        UserMeal tm = new UserMeal(LocalDateTime.now(), 100000, "borsh", 333);
+        service.update(tm,100000);
+        MATCHER.assertEquals(tm,service.get(tm.getId(),100001));
+    }
+
+    @Test
     public void testDelete() throws Exception {
         service.save(new UserMeal( LocalDateTime.now(),100001, "for Delete", 1111),100001);
         System.out.println(service.get(BaseEntity.START_SEQ+4,100001).toString());
