@@ -20,6 +20,8 @@ public class MealTestData {
 
     public static final TestMeal MEAL = new TestMeal(BaseEntity.START_SEQ+2, 100000, LocalDateTime.now(), "soup", 123);
 
+    public static final UserMeal MEAL_TO_DELETE = new UserMeal(BaseEntity.START_SEQ+3, 100001, LocalDateTime.now(), "salad", 321);
+
     public static class TestMeal extends UserMeal {
 
         public TestMeal(UserMeal u) {

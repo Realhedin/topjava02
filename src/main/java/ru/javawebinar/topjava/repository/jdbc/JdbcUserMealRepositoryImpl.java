@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -57,8 +58,8 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
             UserMeal.setId(newKey.intValue());
         } else {
             namedParameterJdbcTemplate.update(
-                    "UPDATE meals SET datetime=:dateTime, description=:description, calories=:calories, " +
-                            "user_id=:user WHERE meal_id=:id", map);
+                    "UPDATE meals SET user_id=:user_id, datetime=:datetime, description=:description, calories=:calories" +
+                            " WHERE id=:id and user_id=:user_id", map);
         }
 
         return UserMeal;
@@ -71,12 +72,12 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public UserMeal get(int id, int userId) {
-        return jdbcTemplate.queryForObject("SELECT id FROM MEALS WHERE id=? and user_id=?",ROW_MAPPER,id,userId);
+        return jdbcTemplate.queryForObject("SELECT id, datetime, description, calories FROM MEALS WHERE id=? and user_id=?",ROW_MAPPER,id,userId);
     }
 
     @Override
     public List<UserMeal> getAll(int userId) {
-        return jdbcTemplate.query("SELECT id, user_id ,datetime, description, calories FROM meals WHERE user_id=? ORDER BY id desc",ROW_MAPPER, userId);
+        return jdbcTemplate.query("SELECT id, user_id ,datetime, description, calories FROM meals WHERE user_id=? ORDER BY datetime desc",ROW_MAPPER, userId);
     }
 
     @Override
@@ -86,7 +87,9 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return jdbcTemplate.query("SELECT id,user_id,datetime,description,calories FROM meals ORDER BY datetime " +
-                "WHERE datetime<? and datetime>? and user_id=?",ROW_MAPPER,endDate,startDate,userId);
+        Timestamp sD = Timestamp.valueOf(startDate);
+        Timestamp eD = Timestamp.valueOf(endDate);
+        return jdbcTemplate.query("SELECT id,user_id,datetime,description,calories FROM meals " +
+                "WHERE datetime<? and datetime>? and user_id=? ORDER BY datetime desc", ROW_MAPPER, eD, sD, userId);
     }
 }
