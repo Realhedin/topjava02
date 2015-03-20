@@ -2,13 +2,11 @@ package ru.javawebinar.topjava.model;
 
 import ru.javawebinar.topjava.util.TimeUtil;
 
-import java.sql.Timestamp;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
- * Entity for Meal
- *
  * GKislin
  * 06.03.2015.
  */
@@ -19,6 +17,7 @@ public class UserMeal extends BaseEntity {
 
     protected int calories;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public UserMeal() {
@@ -35,8 +34,8 @@ public class UserMeal extends BaseEntity {
         this.calories = calories;
     }
 
-    public Date getDateTime() {
-        return Timestamp.valueOf(dateTime);
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     public String getDescription() {
@@ -55,8 +54,8 @@ public class UserMeal extends BaseEntity {
         return user;
     }
 
-    public void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime.toLocalDateTime();
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public void setCalories(int calories) {
