@@ -7,9 +7,6 @@ import ru.javawebinar.topjava.repository.UserMealRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,15 +21,9 @@ public class UserMealServiceImpl implements UserMealService {
     @Autowired
     private UserMealRepository repository;
 
-
     @Override
-    public UserMeal save(UserMeal meal, int userId) {
-        return repository.save(meal, userId);
-    }
-
-    @Override
-    public UserMeal update(UserMeal meal, int userId) {
-        return ExceptionUtil.check(repository.save(meal, userId), meal.getId());
+    public UserMeal get(int id, int userId) {
+        return ExceptionUtil.check(repository.get(id, userId), id);
     }
 
     @Override
@@ -41,13 +32,8 @@ public class UserMealServiceImpl implements UserMealService {
     }
 
     @Override
-    public void deleteAll(int userId) {
-        repository.deleteAll(userId);
-    }
-
-    @Override
-    public UserMeal get(int id, int userId) {
-        return ExceptionUtil.check(repository.get(id, userId), id);
+    public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
+        return repository.getBetween(startDate, endDate, userId);
     }
 
     @Override
@@ -56,21 +42,17 @@ public class UserMealServiceImpl implements UserMealService {
     }
 
     @Override
-    public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return repository.getBetween(startDate, endDate.plus(1, ChronoUnit.DAYS), userId);
+    public void deleteAll(int userId) {
+        repository.deleteAll(userId);
     }
 
-
-    //additional
     @Override
-    public List<UserMeal> filterByBetweenDates(LocalDateTime startDate, LocalDateTime endDate, List<UserMeal> list) {
-        ArrayList<UserMeal> userMeals = new ArrayList<>();
-            for (UserMeal meal : list) {
-                if (meal.getDateTime().isAfter(startDate) && meal.getDateTime().isBefore(endDate)) {
-                    userMeals.add(meal);
-                }
-            }
+    public UserMeal update(UserMeal meal, int userId) {
+        return ExceptionUtil.check(repository.save(meal, userId), meal.getId());
+    }
 
-        return userMeals;
+    @Override
+    public UserMeal save(UserMeal meal, int userId) {
+        return repository.save(meal, userId);
     }
 }
