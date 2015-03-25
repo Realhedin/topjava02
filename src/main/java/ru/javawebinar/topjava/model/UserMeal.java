@@ -1,23 +1,56 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import ru.javawebinar.topjava.util.TimeUtil;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
  * GKislin
  * 06.03.2015.
  */
+@Entity
+@Table(name = "MEALS")
+@NamedQueries({
+        @NamedQuery(name = "UserMeal.getById",
+                query = "select um from UserMeal um where um.id=:id and um.user.id=:userId"),
+        @NamedQuery(name = "UserMeal.delete",
+                query = "delete from UserMeal um where um.id=:id and um.user.id=:userId"),
+        @NamedQuery(name = "UserMeal.deleteAll",
+                query = "delete from UserMeal um where um.user.id=:userId"),
+        @NamedQuery(name = "UserMeal.getAllByUserId",
+                query = "select um from UserMeal um where um.user.id=:userId order by um.dateTime desc"),
+        @NamedQuery(name = "UserMeal.getBetween",
+                query = "select um from UserMeal um where um.user.id=:userId and um.dateTime>=:after" +
+                        " and um.dateTime<:before order by um.dateTime desc"),
+        @NamedQuery(name = "UserMeal.getMealWithUser",
+                query = "select um from UserMeal um LEFT JOIN FETCH um.user where um.id=:id")
+})
 public class UserMeal extends BaseEntity {
+
+    public static final String GET_BY_ID =  "UserMeal.getById";
+    public static final String DELETE = "UserMeal.delete";
+    public static final String DELETE_ALL = "UserMeal.deleteAll";
+    public static final String GET_ALL = "UserMeal.getAllByUserId";
+    public static final String SAVE = "UserMeal.save";
+    public static final String GET_BETWEEN = "UserMeal.getBetween";
+    public static final String GET_MEAL_WITH_USER_BY_ID = "UserMeal.getMealWithUser";
+
+    @Column(name = "datetime", columnDefinition =  "timestamp default now()")
+    @Convert(converter = LocalDateTimePersistenceConverter.class)
     protected LocalDateTime dateTime;
 
+    @Column(name = "description")
     protected String description;
 
+    @Column(name = "calories")
     protected int calories;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotEmpty
     private User user;
 
     public UserMeal() {
@@ -71,4 +104,8 @@ public class UserMeal extends BaseEntity {
         this.user = user;
     }
 
+
 }
+
+
+
