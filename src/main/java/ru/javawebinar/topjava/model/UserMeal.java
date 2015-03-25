@@ -26,7 +26,10 @@ import java.time.LocalDateTime;
                 query = "select um from UserMeal um where um.user.id=:userId and um.dateTime>=:after" +
                         " and um.dateTime<:before order by um.dateTime desc"),
         @NamedQuery(name = "UserMeal.getMealWithUser",
-                query = "select um from UserMeal um LEFT JOIN FETCH um.user where um.id=:id")
+                query = "select um from UserMeal um LEFT JOIN FETCH um.user where um.id=:id"),
+        @NamedQuery(name = "UserMeal.update",
+                query = "update UserMeal um set um.dateTime = :datetime, um.calories= :calories," +
+                        "um.description=:desc where um.id=:id and um.user.id=:userId")
 })
 public class UserMeal extends BaseEntity {
 
@@ -37,6 +40,7 @@ public class UserMeal extends BaseEntity {
     public static final String SAVE = "UserMeal.save";
     public static final String GET_BETWEEN = "UserMeal.getBetween";
     public static final String GET_MEAL_WITH_USER_BY_ID = "UserMeal.getMealWithUser";
+    public static final String UPDATE = "UserMeal.update";
 
     @Column(name = "datetime", columnDefinition =  "timestamp default now()")
     @Convert(converter = LocalDateTimePersistenceConverter.class)

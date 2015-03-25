@@ -35,15 +35,25 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
             userMeal.setUser(user);
             em.persist(userMeal);
         } else {
-            UserMeal testMeal = (UserMeal) em.createNamedQuery(UserMeal.GET_MEAL_WITH_USER_BY_ID).setParameter("id", userMeal.getId()).getSingleResult();
-            if (testMeal.getUser().getId() == userId) {
-                testMeal.setCalories(userMeal.getCalories());
-                testMeal.setDateTime(userMeal.getDateTime());
-                testMeal.setDescription(userMeal.getDescription());
-                em.merge(testMeal);
-            } else {
-                throw new NotFoundException("User is wrong");
-            }
+            //first variant - 2 requests to DB
+//            UserMeal testMeal = (UserMeal) em.createNamedQuery(UserMeal.GET_MEAL_WITH_USER_BY_ID).setParameter("id", userMeal.getId()).getSingleResult();
+//            if (testMeal.getUser().getId() == userId) {
+//                testMeal.setCalories(userMeal.getCalories());
+//                testMeal.setDateTime(userMeal.getDateTime());
+//                testMeal.setDescription(userMeal.getDescription());
+//                em.merge(testMeal);
+                //second varian - 1 complex request
+                if (em.createNamedQuery(UserMeal.UPDATE)
+                        .setParameter("datetime",userMeal.getDateTime())
+                        .setParameter("calories",userMeal.getCalories())
+                        .setParameter("desc",userMeal.getDescription())
+                        .setParameter("id",userMeal.getId())
+                        .setParameter("userId",userId).executeUpdate() == 0) {
+                    return null;
+                }
+//            } else {
+//                throw new NotFoundException("User is wrong");
+//            }
         }
 
         return userMeal;
