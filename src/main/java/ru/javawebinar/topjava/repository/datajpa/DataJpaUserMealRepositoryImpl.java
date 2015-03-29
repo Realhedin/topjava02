@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Repository
 public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
-    private static final Sort SORT_BY_DATETIME = new Sort("dateTime");
+    private static final Sort SORT_BY_DATETIME = new Sort(Sort.Direction.DESC,"dateTime");
 
     @Autowired
     ProxyUserMealRepository proxy;
@@ -53,8 +53,14 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public List<UserMeal> getAll(int userId) {
-        //return proxy.findAll(SORT_BY_DATETIME);
-        return proxy.getAll(userId);
+        //var1
+//        return proxy.getAll(userId);
+        //var2
+//        User user = proxyUser.findOne(userId);
+//        return proxy.findAllByUserOrderByDateTimeDesc(user);
+        //var3
+        User user = proxyUser.findOne(userId);
+        return proxy.findAllByUser(user,SORT_BY_DATETIME);
     }
 
     @Override

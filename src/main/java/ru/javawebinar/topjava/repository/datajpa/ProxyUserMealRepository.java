@@ -17,23 +17,35 @@ import java.util.List;
  */
 public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer> {
 
-
+    /**
+     * save or update method
+     * @param userMeal - our new/existed meal
+     * @return this meal
+     */
     @Override
     UserMeal save(UserMeal userMeal);
-//    @Transactional
-//    @Modifying
-//    @Query()
-//    UserMeal save(@Param("userMeal") UserMeal userMeal, @Param("userId") int userId);
 
 
-    //List<UserMeal> findAll(Sort sort);
-    @Query("SELECT m FROM UserMeal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
-    List<UserMeal> getAll(@Param("userId") int userId);
-    //    @Query(UserMeal.ALL_SORTED)
+    /**
+     * get all userMeals by userId
+     * @param user - User entity
+     * @return list of UserMeal entities
+     */
+    //var 1 - use Query
+//    @Query("SELECT m FROM UserMeal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
 //    List<UserMeal> getAll(@Param("userId") int userId);
+    //var 2 - use JpaRepository method
+//    List<UserMeal> findAllByUserOrderByDateTimeDesc(User user);
+    //var 3 - use JpaRepository + sort
+      List<UserMeal> findAllByUser(User user, Sort sort);
 
 
-       //delete
+    /**
+     * get meal by its id and userId
+     * @param id - id of meal
+     * @param userId - id of user
+     * @return this userMeal
+     */
         //var 1 - use Query
     @Query("SELECT m FROM UserMeal m WHERE m.id=:id and m.user.id=:userId")
     UserMeal getByIdAndUser(@Param("id") int id, @Param("userId") int userId);
@@ -41,19 +53,35 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
 //      UserMeal getByIdAndUser(int id, User user);
 
 
+    /**
+     * delete userMeal by its id
+     * @param id
+     * @param userId
+     * @return int: 1 - success, 0 - fault
+     */
     @Transactional
     @Modifying
-//    @Query(UserMeal.DELETE)
       @Query("DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId")
     int delete(@Param("id")int id, @Param("userId")int userId);
 
 
+    /**
+     * delete all userMeals for current User
+     * @param userId - - id of user
+     */
     @Transactional
     @Modifying
     @Query("DELETE FROM UserMeal i WHERE i.user.id=:userId")
     void deleteAll(@Param("userId") int userId);
 
 
+    /**
+     * get list of UserMeal for current user entities between 2 dates
+     * @param startDate - after this date
+     * @param endDate - before this date
+     * @param userId - - id of user
+     * @return list of userMeals
+     */
     @Query("SELECT m from UserMeal m WHERE m.user.id=:userId AND m.dateTime>=:after and m.dateTime<:before ORDER BY m.dateTime DESC")
     List<UserMeal> getBetween(@Param("after") LocalDateTime startDate, @Param("before") LocalDateTime endDate, @Param("userId") int userId);
 }
