@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 
 import java.time.LocalDateTime;
@@ -32,8 +33,12 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
 //    List<UserMeal> getAll(@Param("userId") int userId);
 
 
+       //delete
+        //var 1 - use Query
     @Query("SELECT m FROM UserMeal m WHERE m.id=:id and m.user.id=:userId")
     UserMeal getByIdAndUser(@Param("id") int id, @Param("userId") int userId);
+        //var2 - use JpaRepository method
+//      UserMeal getByIdAndUser(int id, User user);
 
 
     @Transactional
