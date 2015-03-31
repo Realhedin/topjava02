@@ -25,7 +25,7 @@ import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
         "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("postgres")
+@ActiveProfiles({"postgres","datajpa"})
 public class UserMealServiceTest {
 
     @Rule
