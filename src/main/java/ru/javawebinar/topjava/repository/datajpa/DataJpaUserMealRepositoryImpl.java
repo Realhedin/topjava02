@@ -29,11 +29,11 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
         User user = proxyUser.findOne(userId);
         userMeal.setUser(user);
         if (userMeal.isNew()) {
-            return proxy.save(userMeal);
         } else {
             if (get(userMeal.getId(), userId) == null) return null;
-            return proxy.save(userMeal);
         }
+
+        return proxy.save(userMeal);
 
     }
 
@@ -70,6 +70,6 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return proxy.getBetween(startDate,endDate,userId);
+        return proxy.getBetween(startDate, endDate, userId);
     }
 }
