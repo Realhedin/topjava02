@@ -1,9 +1,6 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +21,9 @@ import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
 })
-@RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles({"postgres","datajpa"})
+//@ActiveProfiles({"postgres","datajpa"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+@Ignore
 public class UserMealServiceTest {
 
     @Rule

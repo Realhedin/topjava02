@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.service;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,9 @@ import static ru.javawebinar.topjava.UserTestData.*;
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
 })
-@ActiveProfiles({"postgres","datajpa"})
-@RunWith(SpringJUnit4ClassRunner.class)
+//@ActiveProfiles({"postgres","datajpa"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+@Ignore
 public class UserServiceTest {
 
     @Autowired
