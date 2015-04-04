@@ -25,9 +25,6 @@ abstract public class DbTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Autowired
-    private JpaUtil jpaUtil;
-
-    @Autowired
     private DbPopulator dbPopulator;
 
     @Autowired
@@ -37,6 +34,5 @@ abstract public class DbTest {
     public void setUp() throws Exception {
         dbPopulator.execute();
         userService.evictCache();
-        jpaUtil.clear2ndLevelHibernateCache();
     }
 }
