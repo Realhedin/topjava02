@@ -15,7 +15,7 @@ public class SpringMain {
 //        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/mock.xml")) {
         try (GenericXmlApplicationContext ctx = new GenericXmlApplicationContext()) {
             ctx.getEnvironment().setActiveProfiles(Profiles.POSTGRES);
-            ctx.load("spring/spring-app.xml", "spring/mock.xml");
+            ctx.load("spring/spring-app.xml", "spring/mock.xml", "spring/spring-mvc.xml");
             ctx.refresh();
             System.out.println("\n" + Arrays.toString(ctx.getBeanDefinitionNames()) + "\n");
             UserMealRestController adminController = ctx.getBean(UserMealRestController.class);
