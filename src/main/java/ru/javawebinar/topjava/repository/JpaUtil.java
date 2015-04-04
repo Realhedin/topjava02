@@ -6,6 +6,9 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/**
+ * invalidate second level Hibernate cache for tests
+ */
 public class JpaUtil {
 
     @PersistenceContext
