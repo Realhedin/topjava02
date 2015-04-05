@@ -5,6 +5,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.service.UserMealService;
+import ru.javawebinar.topjava.service.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -34,7 +35,9 @@ public class MealServlet extends HttpServlet {
         LOG.debug("print table Meals for current user");
 
         UserMealService mealService = web.getBean(UserMealService.class);
+        UserService userService = web.getBean(UserService.class);
         request.setAttribute("allMeals", mealService.getAll(BaseEntity.START_SEQ));
+        request.setAttribute("userName", userService.get(BaseEntity.START_SEQ).getName());
         request.getRequestDispatcher("/WEB-INF/jsp/mealList.jsp").forward(request, response);
        // response.sendRedirect("mealList.jsp");
     }

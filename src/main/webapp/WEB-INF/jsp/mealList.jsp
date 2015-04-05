@@ -18,6 +18,7 @@
     <table cellpadding="8" cellspacing="0">
         <thead>
             <tr>
+                <th>UserName</th>
                 <th>Description</th>
                 <th>Datetime</th>
                 <th>Calories</th>
@@ -27,6 +28,7 @@
             <jsp:useBean id="meal" class="ru.javawebinar.topjava.model.UserMeal"/>
 
             <tr>
+                <td>${userName}</td>
                 <td><c:out value="${meal.description}"/></td>
                 <td>${meal.dateTime}</td>
                 <td><%= meal.getCalories()%> </td>
