@@ -5,11 +5,16 @@
 
     <display-name>Topjava02</display-name>
 
+    <welcome-file-list>
+        <welcome-file>/index.html</welcome-file>
+    </welcome-file-list>
+
     <context-param>
         <param-name>spring.profiles.default</param-name>
         <param-value>postgres,datajpa</param-value>
     </context-param>
 
+    <!--parameters for context-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
@@ -18,11 +23,12 @@
         </param-value>
     </context-param>
 
+    <!--start up and shut down Spring root for web context-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <!--
+
         <servlet>
             <servlet-name>userServlet</servlet-name>
             <servlet-class>ru.javawebinar.topjava.web.UserServlet</servlet-class>
@@ -32,17 +38,17 @@
             <servlet-name>userServlet</servlet-name>
             <url-pattern>/usersServlet</url-pattern>
         </servlet-mapping>
-    -->
-    <!--
-    <servlet>
-        <servlet-name>mealServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.web.MealServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>mealServlet</servlet-name>
-        <url-pattern>/mealsServlet</url-pattern>
-    </servlet-mapping>
-    -->
+
+
+         <servlet>
+             <servlet-name>mealServlet</servlet-name>
+             <servlet-class>ru.javawebinar.topjava.web.MealServlet</servlet-class>
+          </servlet>
+          <servlet-mapping>
+             <servlet-name>mealServlet</servlet-name>
+             <url-pattern>/mealsServlet</url-pattern>
+          </servlet-mapping>
+
 
     <!--Spring MVC-->
     <servlet>
