@@ -18,6 +18,7 @@
           p:suffix=".jsp"/>
 
 
+    <!--spring bundle for localization-->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
           p:cacheSeconds="60"
           p:defaultEncoding="UTF-8">
