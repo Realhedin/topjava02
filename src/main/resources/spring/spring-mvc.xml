@@ -12,9 +12,11 @@
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be refered to inside JSP files -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+    <!--resolves String name into file (jsp)-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
+
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
           p:cacheSeconds="60"
