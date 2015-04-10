@@ -33,4 +33,10 @@ public class UserRestController {
     public void update(@RequestBody User user) {
         helper.update(user);
     }
+
+    @RequestMapping(value = "/text", method = RequestMethod.GET)
+    public String testUTF() {
+        return "Русский текст";
+    }
 }
+
