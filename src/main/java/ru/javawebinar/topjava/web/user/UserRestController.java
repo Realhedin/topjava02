@@ -1,38 +1,36 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.LoggedUser;
-import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.service.UserService;
 
 /**
  * GKislin
  * 06.03.2015.
  */
-@Controller
+@RestController
 public class UserRestController {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(UserRestController.class);
 
     @Autowired
-    private UserService service;
+    private UserHelper helper;
 
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User get() {
-        int id = LoggedUser.id();
-        LOG.info("get", id);
-        return service.get(id);
+        return helper.get(LoggedUser.id());
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
     public void delete() {
-        int id = LoggedUser.id();
-        LOG.info("delete {}", id);
-        service.delete(id);
+        helper.delete(LoggedUser.id());
     }
 
-    public void update(User user) {
-        int id = LoggedUser.id();
-        LOG.info("update");
-        service.update(user);
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody User user) {
+        helper.update(user);
     }
 }
