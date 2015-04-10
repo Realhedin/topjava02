@@ -7,9 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: gkislin
@@ -110,6 +108,14 @@ public class User extends NamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setRoles(Role... authorities) {
+        setRoles(EnumSet.copyOf(Arrays.asList(authorities)));
+    }
+
+    public void setRoles(Set<Role> authorities) {
+        this.roles = Collections.unmodifiableSet(authorities);
     }
 
     @Override

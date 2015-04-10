@@ -4,15 +4,24 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.ResultActions;
+import ru.javawebinar.topjava.TestUtil;
+import ru.javawebinar.topjava.model.Role;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.web.WebTest;
+import ru.javawebinar.topjava.web.json.JsonUtil;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.Profiles.DATAJPA;
 import static ru.javawebinar.topjava.Profiles.HSQLDB;
+import static ru.javawebinar.topjava.UserTestData.*;
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 
 @ActiveProfiles({HSQLDB, DATAJPA})
@@ -28,9 +37,10 @@ public class AdminUserRestControllerTest extends WebTest {
         mockMvc.perform(get(REST_URL + (START_SEQ + 1)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-//                .andExpect(MATCHER.contentMatcher(ADMIN));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MATCHER.contentMatcher(ADMIN));
     }
+
 
 /*
     @Test
@@ -47,6 +57,7 @@ public class AdminUserRestControllerTest extends WebTest {
                 .andExpect(status().isForbidden());
     }
 
+*/
     @Test
     public void testGetByEmail() throws Exception {
         mockMvc.perform(get(REST_URL + "by?email=" + USER.getEmail()))
@@ -68,8 +79,8 @@ public class AdminUserRestControllerTest extends WebTest {
         User updated = USER.copyAsUser();
         updated.setName("UpdatedName");
         updated.setRoles(Role.ROLE_ADMIN);
-        TestUtil.print(mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated))))
+        mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 
         MATCHER.assertEquals(updated, service.get(START_SEQ));
@@ -80,7 +91,6 @@ public class AdminUserRestControllerTest extends WebTest {
         TestUser expected = new TestUser("New", "new@gmail.com", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(TestUtil.userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(expected.copyAsUser()))).andExpect(status().isCreated());
 
         User returned = MATCHER.fromJsonAction(action);
@@ -97,5 +107,4 @@ public class AdminUserRestControllerTest extends WebTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(ADMIN, USER)));
     }
-*/
 }
