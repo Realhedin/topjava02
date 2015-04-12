@@ -23,9 +23,9 @@ import static ru.javawebinar.topjava.Profiles.HSQLDB;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 @ActiveProfiles({HSQLDB, DATAJPA})
-public class UserRestControllerTest extends WebTest {
+public class ProfileRestControllerTest extends WebTest {
 
-    public static final String REST_URL = "/rest/users/";
+    public static final String REST_URL = "/rest/profile/";
 
     @Autowired
     private UserService service;

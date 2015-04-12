@@ -14,7 +14,8 @@ import ru.javawebinar.topjava.model.User;
  * 06.03.2015.
  */
 @RestController
-public class UserRestController {
+@RequestMapping("/rest/profile")
+public class ProfileRestController {
 
     @Autowired
     private UserHelper helper;
