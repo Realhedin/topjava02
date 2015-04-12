@@ -25,7 +25,7 @@ import static ru.javawebinar.topjava.UserTestData.*;
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 
 @ActiveProfiles({HSQLDB, DATAJPA})
-public class AdminUserRestControllerTest extends WebTest {
+public class AdminRestControllerTest extends WebTest {
 
     public static final String REST_URL = "/rest/admin/users/";
 
@@ -42,22 +42,22 @@ public class AdminUserRestControllerTest extends WebTest {
     }
 
 
-/*
-    @Test
-    public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + (1)))
-                .andExpect(status().isNotFound())
-                .andDo(print())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-    }
+    /*
+        @Test
+        public void testGetNotFound() throws Exception {
+            mockMvc.perform(get(REST_URL + (1)))
+                    .andExpect(status().isNotFound())
+                    .andDo(print())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+        }
 
-    @Test
-    public void testGetUnauth() throws Exception {
-        mockMvc.perform(get(REST_URL).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden());
-    }
+        @Test
+        public void testGetUnauth() throws Exception {
+            mockMvc.perform(get(REST_URL).contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isForbidden());
+        }
 
-*/
+    */
     @Test
     public void testGetByEmail() throws Exception {
         mockMvc.perform(get(REST_URL + "by?email=" + USER.getEmail()))
@@ -79,7 +79,7 @@ public class AdminUserRestControllerTest extends WebTest {
         User updated = USER.copyAsUser();
         updated.setName("UpdatedName");
         updated.setRoles(Role.ROLE_ADMIN);
-        mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put(REST_URL + START_SEQ).contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 

@@ -19,8 +19,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/rest/admin/users")
-public class AdminUserRestController {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(UserRestController.class);
+public class AdminRestController {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(ProfileRestController.class);
 
     @Autowired
     private UserHelper helper;
@@ -52,9 +52,9 @@ public class AdminUserRestController {
         helper.delete(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user) {
-        helper.update(user);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody User user, @PathVariable("id") int id) {
+        helper.update(user, id);
     }
 
     @RequestMapping(value = "/by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
