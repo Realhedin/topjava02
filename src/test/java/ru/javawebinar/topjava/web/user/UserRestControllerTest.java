@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.TestUtil;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
@@ -54,12 +55,12 @@ public class UserRestControllerTest extends WebTest {
 
     @Test
     public void testUpdate() throws Exception {
-        TestUser updated = new TestUser("newName", "newEmail", "newPassword", Role.ROLE_USER);
+        User updated = new User(LoggedUser.id(), "newName", "newEmail", "newPassword", true, Role.ROLE_USER);
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(updated, new User(service.getByEmail("newEmail")));
+        MATCHER.assertEquals(updated, new User(service.get(LoggedUser.id())));
     }
 }
