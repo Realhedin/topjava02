@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -43,7 +44,7 @@ public class User extends NamedEntity {
     protected boolean enabled = true;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
-    @NotEmpty
+    @NotNull
     protected Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
@@ -113,11 +114,11 @@ public class User extends NamedEntity {
     }
 
     public void setRoles(Role... authorities) {
-        setRoles(EnumSet.copyOf(Arrays.asList(authorities)));
+        setRoles(Arrays.asList(authorities));
     }
 
-    public void setRoles(Set<Role> authorities) {
-        this.roles = Collections.unmodifiableSet(authorities);
+    public void setRoles(Collection<Role> authorities) {
+        this.roles = Collections.unmodifiableSet(EnumSet.copyOf(authorities));
     }
 
     @Override
