@@ -14,6 +14,7 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.service.UserMealService;
 import ru.javawebinar.topjava.service.UserMealServiceImpl;
+import ru.javawebinar.topjava.util.TimeUtil;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -75,8 +76,11 @@ public class UserMealRestController {
     }
 
     @RequestMapping(value = "/between", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserMeal> getBetween(@RequestParam("startDate") LocalDateTime startDate, @RequestParam("endDate") LocalDateTime endDate) {
-        return helper.getBetween(startDate,endDate);
+   // public List<UserMeal> getBetween(@RequestParam("startDate") LocalDateTime startDate, @RequestParam("endDate") LocalDateTime endDate) {
+    public List<UserMeal> getBetween(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+        LocalDateTime sD = TimeUtil.toDateTime(startDate);
+        LocalDateTime eD = TimeUtil.toDateTime(endDate);
+        return helper.getBetween(sD,eD);
     }
 
 }
