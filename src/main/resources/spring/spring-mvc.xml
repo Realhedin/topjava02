@@ -9,7 +9,15 @@
 
     <bean class="ru.javawebinar.topjava.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
-    <mvc:annotation-driven>
+    <bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="applicationConversionService">
+        <property name="converters">
+            <set>
+                <bean class="ru.javawebinar.topjava.web.converters.StringToLocalDateTimeConverter"/>
+            </set>
+        </property>
+            </bean>
+
+    <mvc:annotation-driven conversion-service="applicationConversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper" ref="objectMapper"/>
