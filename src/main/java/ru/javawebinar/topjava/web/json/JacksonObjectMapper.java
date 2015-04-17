@@ -32,8 +32,8 @@ public class JacksonObjectMapper extends ObjectMapper {
         registerModule(new Hibernate4Module());
 
         SimpleModule customModule = new SimpleModule("customModule", new Version(1, 0, 0, null));
-        customModule.addSerializer(new LocalDateTimeConverter.UserSettingSerializer());
-        customModule.addDeserializer(LocalDateTime.class, new LocalDateTimeConverter.UserSettingDeserializer());
+        customModule.addSerializer(new JsonLocalDateTimeConverter.UserSettingSerializer());
+        customModule.addDeserializer(LocalDateTime.class, new JsonLocalDateTimeConverter.UserSettingDeserializer());
         registerModule(customModule);
 
         setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
