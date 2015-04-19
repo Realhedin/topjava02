@@ -14,7 +14,7 @@ function makeEditable(ajaxUrl) {
     });
 
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
-        fail(event, jqXHR, options, jsExc);
+        failNoty(event, jqXHR, options, jsExc);
     });
 }
 
@@ -24,7 +24,7 @@ function deleteRow(id) {
         type: 'DELETE',
         success: function () {
             updateTable();
-            success('Deleted');
+            successNoty('Deleted');
         }
     });
 }
@@ -44,12 +44,12 @@ function save() {
     debugger;
     $.ajax({
         type: "POST",
-        url: ajaxUrl + $('#item_id').val(),
+        url: ajaxUrl,
         data: frm.serialize(),
         success: function (data) {
             $('#editRow').modal('hide');
             updateTable();
-            success('Saved');
+            successNoty('Saved');
         }
     });
 }
@@ -63,7 +63,7 @@ function closeNote() {
     }
 }
 
-function success(text) {
+function successNoty(text) {
     closeNote();
     noty({
         text: text,
@@ -73,7 +73,7 @@ function success(text) {
     });
 }
 
-function fail(event, jqXHR, options, jsExc) {
+function failNoty(event, jqXHR, options, jsExc) {
     closeNote();
     failedNote = noty({
         text: 'Failed: ' + jqXHR.statusText + "<br>",

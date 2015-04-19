@@ -26,7 +26,7 @@
                     <datatables:column title="Roles" property="roles"/>
                     <datatables:column title="Active">
                         <input type="checkbox"
-                               <c:if test="${user.enabled}">checked</c:if> id="active_${user.id}"/>
+                               <c:if test="${user.enabled}">checked</c:if> id="${user.id}"/>
                     </datatables:column>
                     <datatables:column title="Registered">
                         <fmt:formatDate value="${user.registered}" pattern="dd-MMMM-yyyy"/>
@@ -49,7 +49,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
-                    <input type="text" hidden="hidden" id="item_id">
+                    <input type="text" hidden="hidden" id="item_id" name="item_id">
 
                     <div class="form-group">
                         <label for="name" class="control-label col-xs-3">Name</label>
@@ -86,8 +86,8 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl='ajax/admin/users/';
-//        $(document).ready(function () {
+    var ajaxUrl = 'ajax/admin/users/';
+    //        $(document).ready(function () {
     $(function () {
         makeEditable();
     });

@@ -28,17 +28,14 @@ public class AdminAjaxController {
         helper.delete(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public void update(@PathVariable("id") int id,
+    @RequestMapping(method = RequestMethod.POST)
+    public void update(@RequestParam("item_id") int id,
                        @RequestParam("name") String name,
                        @RequestParam("email") String email,
                        @RequestParam("password") String password) {
-//        throw new IllegalStateException("Test error");
-        User user = new User(id, name, email, password, true, Role.ROLE_USER);
         if (id == 0) {
+            User user = new User(null, name, email, password, true, Role.ROLE_USER);
             helper.create(user);
-        } else {
-            helper.update(user, id);
         }
     }
 }
