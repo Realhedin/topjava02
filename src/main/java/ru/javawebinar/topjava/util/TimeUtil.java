@@ -2,8 +2,11 @@ package ru.javawebinar.topjava.util;
 
 import org.springframework.util.StringUtils;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * GKislin
@@ -26,5 +29,11 @@ public class TimeUtil {
 
     public static LocalDateTime toDateTime(String str, DateTimeFormatter formatter) {
         return StringUtils.isEmpty(str) ? LocalDateTime.now() : LocalDateTime.parse(str, formatter);
+    }
+
+    public static Date toDate(LocalDateTime ldt) {
+        Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
+        Date res = Date.from(instant);
+        return ldt == null ? new Date() : res;
     }
 }
