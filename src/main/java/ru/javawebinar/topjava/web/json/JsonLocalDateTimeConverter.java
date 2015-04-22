@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * GKislin
  * 06.01.2015.
  */
-public class LocalDateTimeConverter {
+public class JsonLocalDateTimeConverter {
     public static class UserSettingSerializer extends JsonSerializer<LocalDateTime> {
         @Override
         public void serialize(LocalDateTime ldt, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
