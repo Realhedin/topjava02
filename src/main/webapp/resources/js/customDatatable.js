@@ -8,6 +8,13 @@ function makeEditable(ajaxUrl) {
         deleteRow($(this).attr("id"));
     });
 
+    $('.edit').click(function () {
+        $('#item_id').val($(this).attr("id"));
+        $('#description').val($(this).attr("description"));
+        $('#calories').val($(this).attr("calories"));
+        $('#editRow').modal();
+    })
+
     $('#detailsForm').submit(function () {
         save();
         return false;

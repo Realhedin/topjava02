@@ -31,6 +31,10 @@
                     <datatables:column filterable="false" sortable="false">
                         <a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a>
                     </datatables:column>
+                    <datatables:column filterable="false" sortable="false">
+                        <a class="btn btn-xs btn-warning edit" id="${meal.id}" description="${meal.description}"
+                                calories="${meal.calories}">Edit</a>
+                    </datatables:column>
                 </datatables:table>
             </div>
         </div>

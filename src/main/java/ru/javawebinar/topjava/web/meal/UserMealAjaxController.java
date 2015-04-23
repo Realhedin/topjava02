@@ -35,6 +35,9 @@ public class UserMealAjaxController {
         if (id == 0) {
             UserMeal meal = new UserMeal(null, LocalDateTime.now(),description,calories);
             helper.create(meal);
+        } else {
+            UserMeal meal = new UserMeal(id,LocalDateTime.now(),description,calories);
+            helper.update(meal,id);
         }
     }
 }
