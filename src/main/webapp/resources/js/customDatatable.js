@@ -107,7 +107,7 @@ function successNoty(text) {
 function failNoty(event, jqXHR, options, jsExc) {
     closeNote();
     failedNote = noty({
-        text: 'Failed: ' + jqXHR.statusText + "<br>",
+        text: 'Failed: ' + jqXHR.statusText + "<br>" + jqXHR.responseJSON,
         type: 'error',
         layout: 'bottomRight'
     });
