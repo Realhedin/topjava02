@@ -4,10 +4,11 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.util.HasPassword;
 
 import javax.validation.constraints.Size;
 
-public class UserTo {
+public class UserTo implements HasPassword {
     protected int id;
 
     @NotEmpty
@@ -34,6 +35,11 @@ public class UserTo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
