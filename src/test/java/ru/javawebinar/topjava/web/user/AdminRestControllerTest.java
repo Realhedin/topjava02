@@ -27,7 +27,7 @@ import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 @ActiveProfiles({HSQLDB, DATAJPA})
 public class AdminRestControllerTest extends WebTest {
 
-    public static final String REST_URL = "/rest/admin/users/";
+    public static final String REST_URL = AdminRestController.REST_URL + '/';
 
     @Autowired
     private UserService service;
