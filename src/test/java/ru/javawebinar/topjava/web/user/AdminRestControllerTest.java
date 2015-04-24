@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.Profiles.DATAJPA;
 import static ru.javawebinar.topjava.Profiles.HSQLDB;
+import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.*;
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 
@@ -34,7 +35,8 @@ public class AdminRestControllerTest extends WebTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + (START_SEQ + 1)))
+        mockMvc.perform(get(REST_URL + (START_SEQ + 1))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -42,22 +44,20 @@ public class AdminRestControllerTest extends WebTest {
     }
 
 
-    /*
-        @Test
-        public void testGetNotFound() throws Exception {
-            mockMvc.perform(get(REST_URL + (1)))
-                    .andExpect(status().isNotFound())
-                    .andDo(print())
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-        }
+    @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + (1)))
+                .andExpect(status().isNotFound())
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
 
-        @Test
-        public void testGetUnauth() throws Exception {
-            mockMvc.perform(get(REST_URL).contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isForbidden());
-        }
+    @Test
+    public void testGetUnauth() throws Exception {
+        mockMvc.perform(get(REST_URL).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
 
-    */
     @Test
     public void testGetByEmail() throws Exception {
         mockMvc.perform(get(REST_URL + "by?email=" + USER.getEmail()))
