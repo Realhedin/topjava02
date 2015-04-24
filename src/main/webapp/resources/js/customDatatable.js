@@ -1,6 +1,10 @@
+var form;
+
 function makeEditable(ajaxUrl) {
+    form = $('#detailsForm')
+
     $('#add').click(function () {
-        $('#item_id').val(0);
+        $('#id').val(0);
         $('#editRow').modal();
     });
 
@@ -8,13 +12,28 @@ function makeEditable(ajaxUrl) {
         deleteRow($(this).attr("id"));
     });
 
-    $('#detailsForm').submit(function () {
+    $('.update').click(function () {
+        updateRow($(this).attr("id"));
+    });
+
+    form.submit(function () {
         save();
         return false;
     });
 
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(event, jqXHR, options, jsExc);
+    });
+
+    specialUpdate();
+}
+
+function updateRow(id) {
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(value);
+        });
+        $('#editRow').modal();
     });
 }
 
@@ -29,6 +48,19 @@ function deleteRow(id) {
     });
 }
 
+function enable(id, chkbox) {
+    var enabled = chkbox.is(":checked");
+    chkbox.parent().parent().css("text-decoration", enabled ? "none" : "line-through");
+    $.ajax({
+        url: ajaxUrl + id + '/enable',
+        type: 'POST',
+        data: 'enabled=' + enabled,
+        success: function () {
+            successNoty(enabled ? 'Enabled' : 'Disabled');
+        }
+    });
+}
+
 function updateTable() {
     $.get(ajaxUrl, function (data) {
         oTable_datatable.fnClearTable();
@@ -37,15 +69,14 @@ function updateTable() {
         });
         oTable_datatable.fnDraw();
     });
+    specialUpdate();
 }
 
 function save() {
-    var frm = $('#detailsForm');
-    debugger;
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        data: frm.serialize(),
+        data: form.serialize(),
         success: function (data) {
             $('#editRow').modal('hide');
             updateTable();

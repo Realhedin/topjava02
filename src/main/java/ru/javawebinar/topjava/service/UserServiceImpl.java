@@ -6,9 +6,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -52,5 +54,24 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public void evictCache() {
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    @Transactional
+    public void save(UserTo userTo) {
+        if (userTo.getId() == 0) {
+            save(userTo.asNewUser());
+        } else {
+            User user = get(userTo.getId());
+            userTo.updateUser(user);
+            save(user);
+        }
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    public void enable(int id, boolean enable) {
+        repository.enable(id, enable);
     }
 }
