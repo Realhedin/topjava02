@@ -15,20 +15,20 @@
     <div class="container">
         <div class="shadow">
             <h3><fmt:message key="meals.title"/></h3>
+            <c:set var="ajaxUrl" value="/ajax/profile/meals"/>
 
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add Meal</a>
 
-                <datatables:table id="datatable" data="${mealList}" row="meal" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxUrl}" row="meal" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
-                    <datatables:column title="Date">
-                        <%=TimeUtil.toString(((UserMeal) meal).getDateTime())%>
-                    </datatables:column>
-                    <datatables:column title="Description" property="description"/>
-                    <datatables:column title="Calories" property="calories"/>
-                    <datatables:column filterable="false" sortable="false">
-                        <a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a>
-                    </datatables:column>
+                    <datatables:column title="Date" sortInitDirection="desc" property="dateTime" renderFunction="renderDate"/>
+                    <datatables:column title="Description" property="description" />
+                    <datatables:column title="Calories" property="calories" />
+                    <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
+                    <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
+
+                    <datatables:callback type="init" function="makeEditable"/>
                 </datatables:table>
             </div>
         </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
-                    <input hidden="hidden" id="item_id" name="item_id">
+                    <input hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
                         <label for="datetime" class="control-label col-xs-3">Date</label>
@@ -71,6 +71,7 @@
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </form>
@@ -81,8 +82,12 @@
 </body>
 <script type="text/javascript">
     var ajaxUrl = 'ajax/profile/meals/';
-    $(function () {
-        makeEditable();
-    });
+//    $(function () {
+//        makeEditable();
+//    });
+
+    function specialUpdate() {
+
+    }
 </script>
 </html>
