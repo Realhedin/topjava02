@@ -79,6 +79,12 @@ function save() {
         data: form.serialize(),
         success: function (data) {
             $('#editRow').modal('hide');
+//            $('body').on('hidden.bs.modal', '.modal', function () {
+//                $(this).removeData('bs.modal');
+//            });
+//            $('#editRow').on('hidden.bs.modal', function(){
+//                $(this).removeData('bs.modal');
+//            });
             updateTable();
             successNoty('Saved');
         }
