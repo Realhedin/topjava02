@@ -36,7 +36,7 @@ public class ProfileRestControllerTest extends WebTest {
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentMatcher(USER)))
+                .andExpect(MATCHER.contentMatcher(USER)));
     }
 
 
