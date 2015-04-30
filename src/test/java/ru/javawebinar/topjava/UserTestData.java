@@ -65,8 +65,8 @@ public class UserTestData {
 
             TestUser that = (TestUser) o;
 
-            return comparePassword(this.password, that.password)
-                    && Objects.equals(this.id, that.id)
+            return //comparePassword(this.password, that.password) &&
+                    Objects.equals(this.id, that.id)
                     && Objects.equals(this.name, that.name)
                     && Objects.equals(this.email, that.email)
                     && Objects.equals(this.enabled, that.enabled)

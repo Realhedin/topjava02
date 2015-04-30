@@ -21,12 +21,16 @@ public class UserHelper {
 
     public List<User> getAll() {
         LOG.info("getAll");
-        return service.getAll();
+        List<User> all = service.getAll();
+        all.forEach(u -> u.setPassword(null));
+        return all;
     }
 
     public User get(int id) {
         LOG.info("get " + id);
-        return service.get(id);
+        User user = service.get(id);
+        user.setPassword(null);
+        return user;
     }
 
     public User create(User user) {
