@@ -38,6 +38,10 @@ public class LoggedUser implements UserDetails {
         return user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public static int id() {
         return get().user.getId();
     }
