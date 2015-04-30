@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.Profiles.DATAJPA;
 import static ru.javawebinar.topjava.Profiles.HSQLDB;
+import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 @ActiveProfiles({HSQLDB, DATAJPA})
@@ -32,10 +33,10 @@ public class ProfileRestControllerTest extends WebTest {
     @Test
     public void testGet() throws Exception {
         TestUtil.print(mockMvc.perform(get(REST_URL)
-                .with(TestUtil.userHttpBasic(USER)))
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentMatcher(USER)));
+                .andExpect(MATCHER.contentMatcher(USER)))
     }
 
 
@@ -48,7 +49,7 @@ public class ProfileRestControllerTest extends WebTest {
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(TestUtil.userHttpBasic(USER)))
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk());
         MATCHER.assertListEquals(Arrays.asList(ADMIN), service.getAll());
     }
@@ -57,7 +58,7 @@ public class ProfileRestControllerTest extends WebTest {
     public void testUpdate() throws Exception {
         User updated = new User(USER.getId(), "newName", "newEmail", "newPassword", true, Role.ROLE_USER);
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .with(TestUtil.userHttpBasic(USER))
+                .with(userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isOk());
