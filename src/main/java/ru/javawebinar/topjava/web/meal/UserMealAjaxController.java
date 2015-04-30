@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/ajax/profile/meals")
-public class UserMealAjaxController {
+public class UserMealAjaxController extends ExceptionInfoHandler {
 
     @Autowired
     private UserMealHelper helper;

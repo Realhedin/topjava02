@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
 /**
  * GKislin
@@ -15,7 +16,7 @@ import ru.javawebinar.topjava.model.User;
  */
 @RestController
 @RequestMapping(ProfileRestController.REST_URL)
-public class ProfileRestController {
+public class ProfileRestController extends ExceptionInfoHandler {
 
     public static final String REST_URL = "/rest/profile";
     @Autowired
