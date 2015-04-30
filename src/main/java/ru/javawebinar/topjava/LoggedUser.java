@@ -3,7 +3,6 @@ package ru.javawebinar.topjava;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 
@@ -40,8 +39,7 @@ public class LoggedUser implements UserDetails {
     }
 
     public static int id() {
-        return BaseEntity.START_SEQ;
-//        return get().user.getId();
+        return get().user.getId();
     }
 
     @Override
