@@ -43,16 +43,15 @@ public class AdminRestControllerTest extends WebTest {
                 .andExpect(MATCHER.contentMatcher(ADMIN));
     }
 
-/*
+
     @Test
     public void testGetNotFound() throws Exception {
         mockMvc.perform(get(REST_URL + (1))
                 .with(TestUtil.userHttpBasic(ADMIN)))
                 .andExpect(status().isNotFound())
-                .andDo(print())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andDo(print());
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
-*/
 
     @Test
     public void testGetUnauth() throws Exception {

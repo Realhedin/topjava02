@@ -42,7 +42,7 @@ public class UserMealRestControllerTest extends WebTest {
                 .andExpect(MATCHER.contentMatcher(MEAL1));
     }
 
-/*
+
     @Test
     public void testGetNotFound() throws Exception {
         mockMvc.perform(get(REST_URL + (ADMIN_MEAL.getId()))
@@ -57,7 +57,6 @@ public class UserMealRestControllerTest extends WebTest {
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
-*/
 
     @Test
     public void testDelete() throws Exception {
