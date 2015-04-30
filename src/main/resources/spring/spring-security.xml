@@ -9,7 +9,6 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
 
-
     <http pattern="/rest/**" use-expressions="true" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
@@ -18,10 +17,14 @@
     </http>
 
     <http>
+        <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()" />
-        <form-login />
-        <logout />
+        <form-login login-page="/login" default-target-url="/meals"
+                    authentication-failure-url="/login?error=true"
+                    login-processing-url="/spring_security_check"/>
+        <logout logout-success-url="/login"/>
+        <csrf disabled="true"/>
     </http>
 
     <beans:bean class="ru.javawebinar.topjava.util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>
