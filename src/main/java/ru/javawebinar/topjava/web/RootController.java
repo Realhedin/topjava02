@@ -71,4 +71,22 @@ public class RootController {
         }
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(ModelMap model) {
+        model.addAttribute("userTo", new UserTo());
+        model.addAttribute("register", true);
+        return "profile";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("register", true);
+            return "profile";
+        } else {
+            status.setComplete();
+            userService.save(UserHelper.asNewUser(userTo));
+            return "redirect:login?message=app.registered";
+        }
+    }
 }
