@@ -1,12 +1,21 @@
 package ru.javawebinar.topjava.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
+import ru.javawebinar.topjava.LoggedUser;
+import ru.javawebinar.topjava.service.UserService;
+import ru.javawebinar.topjava.to.UserTo;
+import ru.javawebinar.topjava.web.user.UserHelper;
+
+import javax.validation.Valid;
 
 /**
  * User: gkislin
@@ -14,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class RootController {
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
         return "redirect:meals";
@@ -40,4 +52,23 @@ public class RootController {
     public String userList() {
         return "userList";
     }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String profile(ModelMap model) {
+        model.put("userTo", LoggedUser.get().getUserTo());
+        return "profile";
+    }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public String saveProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+        if (result.hasErrors()) {
+            model.put("userTo", LoggedUser.get().getUserTo());
+            return "profile";
+        } else {
+            status.setComplete();
+            userService.save(UserHelper.updateUser(LoggedUser.get().getUser(), userTo));
+            return "redirect:meals";
+        }
+    }
+
 }

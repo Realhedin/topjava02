@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.to.UserTo;
 
 import java.util.Set;
 
@@ -40,6 +41,11 @@ public class LoggedUser implements UserDetails {
 
     public User getUser() {
         return user;
+    }
+
+    public UserTo getUserTo() {
+        User user = get().getUser();
+        return new UserTo(user.getId(), user.getName(), user.getEmail());
     }
 
     public static int id() {

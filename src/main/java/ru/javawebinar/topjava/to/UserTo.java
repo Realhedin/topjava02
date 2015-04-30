@@ -11,6 +11,15 @@ import javax.validation.constraints.Size;
 public class UserTo implements HasPassword {
     protected int id;
 
+    public UserTo() {
+    }
+
+    public UserTo(int id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     @NotEmpty
     protected String name;
 
@@ -54,5 +63,13 @@ public class UserTo implements HasPassword {
 
     public User asNewUser() {
         return new User(null, name, email, password, true, Role.ROLE_USER);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
