@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.to.DateTimeFilter;
 import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
 import javax.validation.Valid;
@@ -56,4 +57,11 @@ public class UserMealAjaxController extends ExceptionInfoHandler {
     public UserMeal get(@PathVariable("id") int id) {
         return helper.get(id);
     }
+
+    @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserMeal> filterList(DateTimeFilter filter) {
+        // TODO Implement
+        return helper.filterList(filter);
+    }
+
 }

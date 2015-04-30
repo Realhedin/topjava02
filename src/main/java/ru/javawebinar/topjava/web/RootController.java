@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.service.UserService;
+import ru.javawebinar.topjava.to.DateTimeFilter;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.web.user.UserHelper;
 
@@ -43,6 +44,7 @@ public class RootController {
 
     @RequestMapping(value = "/meals", method = RequestMethod.GET)
     public String mealList(Model model) {
+        model.addAttribute("filter", new DateTimeFilter());
         return "mealList";
     }
 

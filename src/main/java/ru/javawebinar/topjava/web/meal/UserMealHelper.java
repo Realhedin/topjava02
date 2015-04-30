@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.service.UserMealService;
+import ru.javawebinar.topjava.to.DateTimeFilter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -61,5 +62,12 @@ public class UserMealHelper {
         int userId = LoggedUser.id();
         LOG.info("create {} for User {}" + meal, userId);
         return service.save(meal, userId);
+    }
+
+    public List<UserMeal> filterList(DateTimeFilter filter) {
+        int userId = LoggedUser.id();
+        LOG.info("filter for User {}", userId);
+        // TODO implement
+        return service.getAll(userId);
     }
 }
