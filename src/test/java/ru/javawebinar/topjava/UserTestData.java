@@ -75,9 +75,9 @@ public class UserTestData {
     }
 
     private static boolean comparePassword(String rawPassword, String password) {
-        if (PasswordUtil.isPasswordEncoded(rawPassword)) {
+        if (PasswordUtil.isEncoded(rawPassword)) {
             LOG.warn("Expected password couldn't be compared with actual");
-        } else if (!PasswordUtil.isPasswordMatch(rawPassword, password)) {
+        } else if (!PasswordUtil.isMatch(rawPassword, password)) {
             LOG.error("Password " + password + " doesn't match encoded " + password);
             return false;
         }

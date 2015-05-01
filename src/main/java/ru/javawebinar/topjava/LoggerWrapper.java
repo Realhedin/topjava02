@@ -78,7 +78,7 @@ public class LoggerWrapper {
     }
 
     public ErrorInfo getErrorInfo(CharSequence requestUrl, Exception e) {
-        logger.error("Exception at request " + requestUrl);
+        logger.error("Exception at request " + requestUrl, e);
         return new ErrorInfo(requestUrl, e);
     }
 }

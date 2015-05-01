@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * Date: 23.09.2014
  */
 public class ExceptionInfoHandler {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(ExceptionInfoHandler.class);
+    protected final LoggerWrapper LOG = LoggerWrapper.get(getClass());
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)

@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.web.meal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.DateTimeFilter;
-import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,19 +19,16 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/ajax/profile/meals")
-public class UserMealAjaxController extends ExceptionInfoHandler {
-
-    @Autowired
-    private UserMealHelper helper;
+public class UserMealAjaxController extends AbstractMealController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMeal> getAll() {
-        return helper.getAll();
+        return super.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") int id) {
-        helper.delete(id);
+        super.delete(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -44,10 +39,9 @@ public class UserMealAjaxController extends ExceptionInfoHandler {
             return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
         } else {
             if (meal.getId() == 0) {
-                meal.setId(null);
-                helper.create(meal);
+                super.create(meal);
             } else {
-                helper.update(meal, meal.getId());
+                super.update(meal, meal.getId());
             }
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -55,13 +49,13 @@ public class UserMealAjaxController extends ExceptionInfoHandler {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public UserMeal get(@PathVariable("id") int id) {
-        return helper.get(id);
+        return super.get(id);
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMeal> filterList(DateTimeFilter filter) {
         // TODO Implement
-        return helper.filterList(filter);
+        return super.filterList(filter);
     }
 
 }

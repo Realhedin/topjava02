@@ -14,7 +14,7 @@ import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.to.DateTimeFilter;
 import ru.javawebinar.topjava.to.UserTo;
-import ru.javawebinar.topjava.web.user.UserHelper;
+import ru.javawebinar.topjava.util.UserUtil;
 
 import javax.validation.Valid;
 
@@ -48,7 +48,7 @@ public class RootController {
         return "mealList";
     }
 
-//    @Secured("ROLE_ADMIN")
+    //    @Secured("ROLE_ADMIN")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String userList() {
@@ -57,18 +57,17 @@ public class RootController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(ModelMap model) {
-        model.put("userTo", LoggedUser.get().getUserTo());
         return "profile";
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String saveProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
         if (result.hasErrors()) {
-            model.put("userTo", LoggedUser.get().getUserTo());
             return "profile";
         } else {
             status.setComplete();
-            userService.save(UserHelper.updateUser(LoggedUser.get().getUser(), userTo));
+            LoggedUser.get().updateUserTo(userTo);
+            userService.update(userTo);
             return "redirect:meals";
         }
     }
@@ -87,7 +86,7 @@ public class RootController {
             return "profile";
         } else {
             status.setComplete();
-            userService.save(UserHelper.asNewUser(userTo));
+            userService.save(UserUtil.createFromTo(userTo));
             return "redirect:login?message=app.registered";
         }
     }

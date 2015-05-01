@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.UserTo;
+import ru.javawebinar.topjava.util.UserUtil;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
@@ -17,11 +19,17 @@ import static java.util.Objects.requireNonNull;
  * <p>
  * Mock implementation
  */
-public class LoggedUser implements UserDetails {
-    protected User user;
+public class LoggedUser implements UserDetails, Serializable {
+    private UserTo userTo;
+    private final boolean enabled;
+    private final Set<Role> roles;
+    private final String encodedPassword;
 
     public LoggedUser(User user) {
-        this.user = user;
+        this.userTo = UserUtil.asTo(user);
+        this.enabled = user.isEnabled();
+        this.roles = user.getRoles();
+        this.encodedPassword = user.getPassword();
     }
 
     public static LoggedUser safeGet() {
@@ -39,51 +47,51 @@ public class LoggedUser implements UserDetails {
         return user;
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public UserTo getUserTo() {
-        User user = get().getUser();
-        return new UserTo(user.getId(), user.getName(), user.getEmail());
+        return userTo;
     }
 
     public static int id() {
-        return get().user.getId();
+        return get().userTo.getId();
     }
 
     @Override
     public Set<Role> getAuthorities() {
-        return user.getRoles();
+        return roles;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return encodedPassword;
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return userTo.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return user.isEnabled();
+        return enabled;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return user.isEnabled();
+        return enabled;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return user.isEnabled();
+        return enabled;
     }
 
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        return enabled;
+    }
+
+    public void updateUserTo(UserTo userTo) {
+        userTo.setId(this.userTo.getId());
+        this.userTo = UserUtil.asTo(userTo);
     }
 }

@@ -5,13 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.TestUtil;
-import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
+import ru.javawebinar.topjava.to.UserTo;
+import ru.javawebinar.topjava.util.UserUtil;
 import ru.javawebinar.topjava.web.WebTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -51,18 +52,20 @@ public class ProfileRestControllerTest extends WebTest {
         mockMvc.perform(delete(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk());
-        MATCHER.assertListEquals(Arrays.asList(ADMIN), service.getAll());
+        MATCHER.assertListEquals(Collections.singletonList(ADMIN), service.getAll());
     }
 
     @Test
     public void testUpdate() throws Exception {
-        User updated = new User(USER.getId(), "newName", "newEmail", "newPassword", true, Role.ROLE_USER);
+        UserTo updated = new UserTo(USER.getId(), "newName", "newEmail");
+        updated.setPassword("newPassword");
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(updated, new User(service.get(USER.getId())));
+        User actual = service.get(USER.getId());
+        MATCHER.assertEquals(UserUtil.updateFromTo(actual, updated), actual);
     }
 }
