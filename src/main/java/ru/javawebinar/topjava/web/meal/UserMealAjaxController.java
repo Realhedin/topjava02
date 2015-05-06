@@ -12,6 +12,7 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.DateTimeFilter;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -54,8 +55,8 @@ public class UserMealAjaxController extends AbstractMealController {
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMeal> filterList(DateTimeFilter filter) {
-        // TODO Implement
-        return super.filterList(filter);
+        // TODO Implement filter between DateTimeFilter.startDate and DateTimeFilter.endDate
+        return super.getBetween(LocalDateTime.now(), LocalDateTime.now());
     }
 
 }
