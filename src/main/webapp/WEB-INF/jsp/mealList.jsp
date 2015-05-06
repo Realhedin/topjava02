@@ -138,9 +138,11 @@
             type: "POST",
             url: frm.attr('action'),
             data: frm.serialize(),
-            success: updateByData
+            success: function(data){
+                updateByData(data);
+                coloredTable();
+            }
         });
-        coloredTable();
     }
 
     function coloredTable() {

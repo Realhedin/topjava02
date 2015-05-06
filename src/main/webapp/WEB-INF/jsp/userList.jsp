@@ -89,8 +89,10 @@
     }
 
     function updateTable() {
-        $.get(ajaxUrl, updateByData);
-        checkedUsers();
+        $.get(ajaxUrl, function(data){
+            updateByData(data);
+            checkedUsers();
+        });
     }
 
     function checkedUsers(){
