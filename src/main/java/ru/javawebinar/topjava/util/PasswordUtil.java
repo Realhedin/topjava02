@@ -19,26 +19,21 @@ public class PasswordUtil {
         return PASSWORD_ENCODER;
     }
 
-    public static String encodePassword(String newPassword) {
+    public static String encode(String newPassword) {
         if (StringUtils.isEmpty(newPassword)) {
             return null;
         }
-        if (isPasswordEncoded(newPassword)) {
+        if (isEncoded(newPassword)) {
             return newPassword;
         }
         return PASSWORD_ENCODER.encode(newPassword);
     }
 
-    public static boolean isPasswordMatch(String rawPassword, String password) {
+    public static boolean isMatch(String rawPassword, String password) {
         return PASSWORD_ENCODER.matches(rawPassword, password);
     }
 
-    public static boolean isPasswordEncoded(String newPassword) {
+    public static boolean isEncoded(String newPassword) {
         return BCRYPT_PATTERN.matcher(newPassword).matches();
-    }
-
-    public static <T extends HasPassword> T getEncoded(T u) {
-        u.setPassword(PasswordUtil.encodePassword(u.getPassword()));
-        return u;
     }
 }

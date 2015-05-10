@@ -2,31 +2,38 @@ package ru.javawebinar.topjava.to;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import ru.javawebinar.topjava.model.Role;
-import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.util.HasPassword;
+import ru.javawebinar.topjava.util.AbstractUser;
 
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-public class UserTo implements HasPassword {
+public class UserTo implements AbstractUser, Serializable {
     protected int id;
+
+    public UserTo() {
+    }
+
+    public UserTo(int id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 
     @NotEmpty
     protected String name;
 
-    @NotEmpty
     @Email
     protected String email;
 
     @Size(min = 5, max = 15, message = " must between 5 and 15 characters")
     protected String password;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.id = (id == null ? 0 : id);
     }
 
     public void setName(String name) {
@@ -46,13 +53,21 @@ public class UserTo implements HasPassword {
         this.password = password;
     }
 
-    public void updateUser(User user) {
-        user.setName(name);
-        user.setEmail(email);
-        user.setPassword(password);
+    public String getName() {
+        return name;
     }
 
-    public User asNewUser() {
-        return new User(null, name, email, password, true, Role.ROLE_USER);
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "UserTo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

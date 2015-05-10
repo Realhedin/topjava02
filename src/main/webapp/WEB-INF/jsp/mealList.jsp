@@ -1,10 +1,10 @@
-<%@ page import="ru.javawebinar.topjava.model.UserMeal" %>
-<%@ page import="ru.javawebinar.topjava.util.TimeUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 <%@ taglib prefix="dandelion" uri="http://github.com/dandelion" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <dandelion:bundle includes="topjavaDatatable"/>
@@ -16,19 +16,49 @@
         <div class="shadow">
             <h3><fmt:message key="meals.title"/></h3>
 
+            <c:set var="ajaxUrl" value="ajax/profile/meals/"/>
             <div class="view-box">
+                <form:form modelAttribute="filter" class="form-horizontal" action="ajax/profile/meals/filter" charset="utf-8"
+                           accept-charset="UTF-8" id="filter">
+                    <div class="form-group">
+                        <spring:bind path="startDate">
+                            <label class="col-sm-1">From Date</label>
+                            <div class="col-sm-2"><form:input path="startDate" class="form-control date-picker" placeholder="Start Date"/></div>
+                        </spring:bind>
+                        <spring:bind path="endDate">
+                            <label class="col-sm-1">To Date</label>
+                            <div class="col-sm-2"><form:input path="endDate" class="form-control date-picker" placeholder="End Date"/></div>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <spring:bind path="startTime">
+                            <label class="col-sm-1">From Time</label>
+                            <div class="col-sm-2"><form:input path="startTime" class="form-control time-picker" placeholder="Start Time"/></div>
+                        </spring:bind>
+                        <spring:bind path="endTime">
+                            <label class="col-sm-1">To Time</label>
+                            <div class="col-sm-2"><form:input path="endTime" class="form-control time-picker" placeholder="End Time"/></div>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary pull-right">Filter</button>
+                        </div>
+                    </div>
+                </form:form>
+
                 <a class="btn btn-sm btn-info" id="add">Add Meal</a>
 
-                <datatables:table id="datatable" data="${mealList}" row="meal" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxUrl}" row="user" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
-                    <datatables:column title="Date">
-                        <%=TimeUtil.toString(((UserMeal) meal).getDateTime())%>
-                    </datatables:column>
+
+                    <datatables:column title="Date" filterable="false" sortInitDirection="desc" property="dateTime"/>
                     <datatables:column title="Description" property="description"/>
-                    <datatables:column title="Calories" property="calories"/>
-                    <datatables:column filterable="false" sortable="false">
-                        <a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a>
-                    </datatables:column>
+                    <datatables:column title="Calories" filterable="false" property="calories"/>
+                    <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
+                    <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
+
+                    <datatables:callback type="init" function="makeEditable"/>
                 </datatables:table>
             </div>
         </div>
@@ -40,17 +70,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title">Edit Meal</h2>
+                <h2 class="modal-title">Meal details:</h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
-                    <input hidden="hidden" id="item_id" name="item_id">
+                    <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
                         <label for="datetime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control datetime-picker" id="datetime" name="datetime" placeholder="Date">
+                            <input type="datetime" class="form-control datetime-picker" id="dateTime" name="dateTime" placeholder="Date">
                         </div>
                     </div>
                     <div class="form-group">
@@ -80,9 +110,43 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/profile/meals/';
-    $(function () {
-        makeEditable();
-    });
+    var ajaxUrl = '${ajaxUrl}';
+
+    function init() {
+        $('#filter').submit(function () {
+            updateTable();
+            return false;
+        });
+
+        $('.date-picker').datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d'
+        });
+        $('.time-picker').datetimepicker({
+            datepicker: false,
+            format: 'H:i'
+        });
+        $('.datetime-picker').datetimepicker({
+            format: 'Y-m-d H:i'
+        });
+        coloredTable();
+    }
+
+    function updateTable() {
+        var frm = $('#filter');
+        $.ajax({
+            type: "POST",
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function(data){
+                updateByData(data);
+                coloredTable();
+            }
+        });
+    }
+
+    function coloredTable() {
+        // TODO implement;
+    }
 </script>
 </html>

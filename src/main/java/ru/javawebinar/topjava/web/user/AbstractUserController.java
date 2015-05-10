@@ -1,37 +1,44 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
-import ru.javawebinar.topjava.util.PasswordUtil;
+import ru.javawebinar.topjava.to.UserTo;
+import ru.javawebinar.topjava.util.UserUtil;
+import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
 import java.util.List;
 
 /**
  * User: gkislin
  */
-@Component
-public class UserHelper {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(UserHelper.class);
-
+public abstract class AbstractUserController extends ExceptionInfoHandler {
     @Autowired
     private UserService service;
 
     public List<User> getAll() {
         LOG.info("getAll");
-        return service.getAll();
+        List<User> all = service.getAll();
+        all.forEach(u -> u.setPassword(null));
+        return all;
     }
 
     public User get(int id) {
         LOG.info("get " + id);
-        return service.get(id);
+        User user = service.get(id);
+        user.setPassword(null);
+        return user;
+    }
+
+    public User create(UserTo userTo) {
+        LOG.info("create " + userTo);
+        return create(UserUtil.createFromTo(userTo));
     }
 
     public User create(User user) {
         LOG.info("create " + user);
-        return service.save(PasswordUtil.getEncoded(user));
+        user.setId(null);
+        return service.save(UserUtil.encode(user));
     }
 
     public void delete(int id) {
@@ -39,10 +46,16 @@ public class UserHelper {
         service.delete(id);
     }
 
+    public void update(UserTo userTo, int id) {
+        LOG.info("update " + userTo);
+        userTo.setId(id);
+        service.update(userTo);
+    }
+
     public void update(User user, int id) {
         LOG.info("update " + user);
-        user.update(id);
-        service.update(PasswordUtil.getEncoded(user));
+        user.setId(id);
+        service.update(user);
     }
 
     public User getByMail(String email) {

@@ -4,6 +4,9 @@ function makeEditable(ajaxUrl) {
     form = $('#detailsForm')
 
     $('#add').click(function () {
+        form.find(":input").each(function () {
+            $(this).val("");
+        });
         $('#id').val(0);
         $('#editRow').modal();
     });
@@ -25,7 +28,7 @@ function makeEditable(ajaxUrl) {
         failNoty(event, jqXHR, options, jsExc);
     });
 
-    specialUpdate();
+    init();
 }
 
 function updateRow(id) {
@@ -61,15 +64,12 @@ function enable(id, chkbox) {
     });
 }
 
-function updateTable() {
-    $.get(ajaxUrl, function (data) {
-        oTable_datatable.fnClearTable();
-        $.each(data, function (key, item) {
-            oTable_datatable.fnAddData(item);
-        });
-        oTable_datatable.fnDraw();
+function updateByData(data) {
+    oTable_datatable.fnClearTable();
+    $.each(data, function (key, item) {
+        oTable_datatable.fnAddData(item);
     });
-    specialUpdate();
+    oTable_datatable.fnDraw();
 }
 
 function save() {
@@ -106,8 +106,10 @@ function successNoty(text) {
 
 function failNoty(event, jqXHR, options, jsExc) {
     closeNote();
+    var errorInfo = $.parseJSON(jqXHR.responseText);
+
     failedNote = noty({
-        text: 'Failed: ' + jqXHR.statusText + "<br>" + jqXHR.responseJSON,
+        text: 'Failed: ' + jqXHR.statusText + "<br>" + errorInfo.cause + "<br>" + errorInfo.detail,
         type: 'error',
         layout: 'bottomRight'
     });

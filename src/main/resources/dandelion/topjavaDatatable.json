@@ -3,7 +3,7 @@
     "dependencies" : [ "topjava", "datetimepicker", "datatables"],
     "assets": [{
         "name": "jquery-noty",
-        "version": "2.2.2",
+        "version": "2.2.4",
         "type": "js",
         "locations": {
             "webjar": "jquery.noty.packaged.min.js"

@@ -84,7 +84,18 @@
 <script type="text/javascript">
     var ajaxUrl = '${ajaxUrl}';
 
-    function specialUpdate(){
+    function init() {
+        checkedUsers();
+    }
+
+    function updateTable() {
+        $.get(ajaxUrl, function(data){
+            updateByData(data);
+            checkedUsers();
+        });
+    }
+
+    function checkedUsers(){
         $(':checkbox').each(function () {
             if (!$(this).is(":checked")) {
                 $(this).parent().parent().css("text-decoration", "line-through");
