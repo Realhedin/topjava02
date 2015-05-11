@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.web.meal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,7 +57,17 @@ public class UserMealAjaxController extends AbstractMealController {
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMeal> filterList(DateTimeFilter filter) {
+        if (StringUtils.isEmpty(filter.getStartDate()) || StringUtils.isEmpty(filter.getEndDate())) {
+            return super.getAll();
+        }
+
+        if (StringUtils.isEmpty(filter.getStartTime())) {
+            filter.setStartTime("00:00");
+        }
         LocalDateTime start = TimeUtil.toDateTime(filter.getStartDate() + " " + filter.getStartTime());
+        if (StringUtils.isEmpty(filter.getEndTime())) {
+            filter.setEndTime("00:00");
+        }
         LocalDateTime end = TimeUtil.toDateTime(filter.getEndDate() + " " + filter.getEndTime());
         return super.getBetween(start, end);
     }

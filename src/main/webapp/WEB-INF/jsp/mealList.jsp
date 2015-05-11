@@ -147,6 +147,13 @@
 
     function coloredTable() {
         // TODO implement;
+        var test = true;
+        var rows = $("#datatable").dataTable().fnGetNodes();
+        for (var i = 0; i < rows.length; i++) {
+            if ($(rows[i]).find("td:eq(2)").html() >= 1000) {
+                $(rows[i]).css('background-color', 'green');
+            }
+        };
     }
 </script>
 </html>

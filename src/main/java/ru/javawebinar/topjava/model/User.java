@@ -56,6 +56,10 @@ public class User extends NamedEntity implements AbstractUser {
 //    @JsonIgnore
     protected Set<Role> roles;
 
+    @Column(name = "caloriesPerDay")
+    @NotNull
+    protected int caloriesPerDay;
+
 //    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
 //    private List<UserMeal> userMeals = new LinkedList<>();
 
@@ -112,6 +116,14 @@ public class User extends NamedEntity implements AbstractUser {
 
     public String getPassword() {
         return password;
+    }
+
+    public int getCaloriesPerDay() {
+        return caloriesPerDay;
+    }
+
+    public void setCaloriesPerDay(int caloriesPerDay) {
+        this.caloriesPerDay = caloriesPerDay;
     }
 
     public void setRoles(Role... authorities) {
