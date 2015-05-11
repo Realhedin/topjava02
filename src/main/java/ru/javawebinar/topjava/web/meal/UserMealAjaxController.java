@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.DateTimeFilter;
+import ru.javawebinar.topjava.util.TimeUtil;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -55,8 +56,9 @@ public class UserMealAjaxController extends AbstractMealController {
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMeal> filterList(DateTimeFilter filter) {
-        // TODO Implement filter between DateTimeFilter.startDate and DateTimeFilter.endDate
-        return super.getBetween(LocalDateTime.now(), LocalDateTime.now());
+        LocalDateTime start = TimeUtil.toDateTime(filter.getStartDate() + " " + filter.getStartTime());
+        LocalDateTime end = TimeUtil.toDateTime(filter.getEndDate() + " " + filter.getEndTime());
+        return super.getBetween(start, end);
     }
 
 }
