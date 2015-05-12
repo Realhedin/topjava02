@@ -55,6 +55,7 @@
                     <datatables:column title="Date" filterable="false" sortInitDirection="desc" property="dateTime"/>
                     <datatables:column title="Description" property="description"/>
                     <datatables:column title="Calories" filterable="false" property="calories"/>
+                    <datatables:column title="Exceeded" property="exceed" cssCellClass="hidden"/>
                     <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
                     <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
 
@@ -146,12 +147,13 @@
     }
 
     function coloredTable() {
-        // TODO implement;
-        var test = true;
         var rows = $("#datatable").dataTable().fnGetNodes();
         for (var i = 0; i < rows.length; i++) {
-            if ($(rows[i]).find("td:eq(2)").html() >= 1000) {
-                $(rows[i]).css('background-color', 'green');
+//            if ($(rows[i]).find("td:eq(2)").html() >= 1000) {
+//                $(rows[i]).css('background-color', 'green');
+//            }
+            if ($(rows[i]).find("td:eq(3)").html() == 'true') {
+                $(rows[i]).css('background-color', 'orange');
             }
         };
     }
