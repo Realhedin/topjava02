@@ -16,7 +16,7 @@ public class UserUtil {
     }
 
     public static UserTo asTo(AbstractUser user) {
-        return new UserTo(user.getId(), user.getName(), user.getEmail());
+        return new UserTo(user.getId(), user.getName(), user.getEmail(), user.getCaloriesPerDay());
     }
 
     public static User updateFromTo(User oldUser, UserTo updatedUser) {
@@ -41,6 +41,7 @@ public class UserUtil {
         }
         oldUser.setName(updatedUser.getName());
         oldUser.setEmail(updatedUser.getEmail().toLowerCase());
+        oldUser.setCaloriesPerDay(updatedUser.getCaloriesPerDay());
         return oldUser;
     }
 }

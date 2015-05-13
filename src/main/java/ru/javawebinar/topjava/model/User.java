@@ -2,9 +2,6 @@ package ru.javawebinar.topjava.model;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import ru.javawebinar.topjava.util.AbstractUser;
 
 import javax.persistence.*;
@@ -30,13 +27,9 @@ public class User extends NamedEntity implements AbstractUser {
     public static final String BY_EMAIL = "User.getByEmail";
 
     @Column(name = "email", nullable = false, unique = true)
-    @Email
-    @NotEmpty
     protected String email;
 
     @Column(name = "password", nullable = false)
-    @NotEmpty
-    @Length(min = 5)
     protected String password;
 
     @Column(name = "enabled", nullable = false)
@@ -53,6 +46,9 @@ public class User extends NamedEntity implements AbstractUser {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 //    @JsonIgnore
     protected Set<Role> roles;
+
+    @Column(name = "calories_per_day", nullable = false, columnDefinition = "default 2000")
+    protected int caloriesPerDay = 2000;
 
 //    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
 //    private List<UserMeal> userMeals = new LinkedList<>();
@@ -86,6 +82,16 @@ public class User extends NamedEntity implements AbstractUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public int getCaloriesPerDay() {
+        return caloriesPerDay;
+    }
+
+    @Override
+    public void setCaloriesPerDay(int caloriesPerDay) {
+        this.caloriesPerDay = caloriesPerDay;
     }
 
     public Date getRegistered() {
