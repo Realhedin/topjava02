@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%--
 <fmt:setLocale value="ru"/>
@@ -14,7 +15,8 @@
         <a href="${meals}" class="navbar-brand"><fmt:message key="app.title"/></a>
 
         <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right">
+            <c:url value="/logout" var="logout"/>
+            <form:form class="navbar-form navbar-right" action="${logout}" method="post">
                 <sec:authorize access="isAuthenticated()">
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <c:url value="/users" var="users"/>
@@ -22,10 +24,9 @@
                     </sec:authorize>
                     <c:url value="/profile" var="profile"/>
                     <a class="btn btn-info" role="button" href="${profile}">${userTo.name} profile</a>
-                    <c:url value="/logout" var="logout"/>
-                    <a class="btn btn-primary" role="button" href="${logout}">Logout</a>
+                    <input type="submit" class="btn btn-primary" value="Logout">
                 </sec:authorize>
-            </form>
+            </form:form>
         </div>
     </div>
 </div>
