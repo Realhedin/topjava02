@@ -57,6 +57,7 @@
                     <datatables:column title="Calories" filterable="false" property="calories"/>
                     <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
                     <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
+                    <datatables:column property="exceed" sortable="false" cssCellClass="hidden exceed"/>
 
                     <datatables:callback type="init" function="makeEditable"/>
                 </datatables:table>
@@ -149,7 +150,10 @@
     }
 
     function coloredTable() {
-        // TODO implement;
+        $.each($('td.exceed'), function (key, item) {
+            var span = $(item);
+            span.parent().css("color", span.html() == 'true' ? 'red' : 'green');
+        });
     }
 </script>
 </html>
