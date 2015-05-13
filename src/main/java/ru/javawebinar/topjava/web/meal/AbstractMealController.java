@@ -14,7 +14,7 @@ public class AbstractMealController extends ExceptionInfoHandler {
     protected static final LoggerWrapper LOG = LoggerWrapper.get(AbstractMealController.class);
 
     @Autowired
-    private UserMealService service;
+    protected UserMealService service;
 
     public UserMeal get(int id) {
         int userId = LoggedUser.id();
