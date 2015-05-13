@@ -8,6 +8,10 @@ import org.springframework.validation.BindingResult;
  */
 public class ValidationException extends RuntimeException {
 
+    public ValidationException(String message) {
+        super(message);
+    }
+
     public ValidationException(BindingResult result) {
         super(getDescription(result));
     }
