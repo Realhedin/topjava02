@@ -1,13 +1,12 @@
 package ru.javawebinar.topjava.web.meal;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.support.SessionStatus;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.DateTimeFilter;
 
@@ -33,18 +32,16 @@ public class UserMealAjaxController extends AbstractMealController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> update(@Valid UserMeal meal, BindingResult result) {
+    public void update(@Valid UserMeal meal, BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
-            StringBuilder sb = new StringBuilder();
-            result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
-            return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
+            throw LOG.getValidationException(result);
         } else {
+            status.setComplete();
             if (meal.getId() == 0) {
                 super.create(meal);
             } else {
                 super.update(meal, meal.getId());
             }
-            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 

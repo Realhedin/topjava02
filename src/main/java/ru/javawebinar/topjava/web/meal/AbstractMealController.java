@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class AbstractMealController extends ExceptionInfoHandler {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(AbstractMealController.class);
+    protected static final LoggerWrapper LOG = LoggerWrapper.get(AbstractMealController.class);
 
     @Autowired
     private UserMealService service;
