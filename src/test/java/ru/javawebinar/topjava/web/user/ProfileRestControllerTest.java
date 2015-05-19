@@ -57,7 +57,7 @@ public class ProfileRestControllerTest extends WebTest {
 
     @Test
     public void testUpdate() throws Exception {
-        UserTo updated = new UserTo(USER.getId(), "newName", "newEmail");
+        UserTo updated = new UserTo(USER.getId(), "newName", "newEmail", 1500);
         updated.setPassword("newPassword");
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER))

@@ -1,7 +1,7 @@
 var form;
 
 function makeEditable(ajaxUrl) {
-    form = $('#detailsForm')
+    form = $('#detailsForm');
 
     $('#add').click(function () {
         form.find(":input").each(function () {
@@ -28,6 +28,11 @@ function makeEditable(ajaxUrl) {
         failNoty(event, jqXHR, options, jsExc);
     });
 
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
     init();
 }
 

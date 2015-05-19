@@ -2,8 +2,10 @@ package ru.javawebinar.topjava;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 import ru.javawebinar.topjava.util.exception.ErrorInfo;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
+import ru.javawebinar.topjava.util.exception.ValidationException;
 
 /**
  * Wrapper for our logging:
@@ -79,6 +81,11 @@ public class LoggerWrapper {
     public NotFoundException getNotFoundException(String reason) {
         logger.error("No data found");
         return new NotFoundException(reason);
+    }
+
+    public ValidationException getValidationException(BindingResult result) {
+        logger.error("Validation exception");
+        return new ValidationException(result);
     }
 
     public ErrorInfo getErrorInfo(CharSequence requestUrl, Exception e) {

@@ -20,6 +20,9 @@
 
         <spring.version>4.1.6.RELEASE</spring.version>
         <spring-data-jpa.version>1.8.0.RELEASE</spring-data-jpa.version>
+        <spring-security.version>4.0.1.RELEASE</spring-security.version>
+
+        <postgresql.version>9.4-1201-jdbc41</postgresql.version>
 
         <!-- Logging -->
         <logback.version>1.1.2</logback.version>
@@ -46,7 +49,6 @@
         <webjars-datetimepicker.version>2.3.4</webjars-datetimepicker.version>
         <webjars-noty.version>2.2.4</webjars-noty.version>
         <webjars-datatables.version>1.9.4-2</webjars-datatables.version>
-        <spring-security.version>4.0.1.RELEASE</spring-security.version>
     </properties>
 
     <build>
@@ -79,11 +81,10 @@
                     <dependency>
                         <groupId>org.postgresql</groupId>
                         <artifactId>postgresql</artifactId>
-                        <version>9.3-1100-jdbc41</version>
+                        <version>${postgresql.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
-
         </plugins>
     </build>
 
@@ -319,7 +320,8 @@
                 <dependency>
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
-                    <version>9.4-1201-jdbc41</version>
+                    <version>${postgresql.version}</version>
+                    <scope>runtime</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
@@ -330,6 +332,36 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+        </profile>
+        <profile>
+            <id>heroku</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.10</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.github.jsimone</groupId>
+                                            <artifactId>webapp-runner</artifactId>
+                                            <version>7.0.57.2</version>
+                                            <destFileName>webapp-runner.jar</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
